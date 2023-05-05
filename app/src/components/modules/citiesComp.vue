@@ -1,6 +1,6 @@
 <template>
   <main>
-    <div id="slider">
+    <div id="slider" ref="sliderRef">
       <div class="slider-inner">
         <div id="slider-content">
           <div class="meta">Species</div>
@@ -18,18 +18,7 @@
         </div>
       </div>
 
-      <img
-        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123024/leopard2.jpg"
-      />
-      <img
-        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123024/lion2.jpg"
-      />
-      <img
-        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123024/tiger2.jpg"
-      />
-      <img
-        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123024/bear2.jpg"
-      />
+      <img v-for="(image, index) in images" :key="index" :src="image" />
 
       <div id="pagination">
         <button class="active" data-slide="0"></button>
@@ -41,10 +30,36 @@
   </main>
 </template>
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, onMounted, ref } from "vue";
+import * as THREE from "three";
+import { TweenLite } from "gsap";
+import imagesLoaded from "imagesloaded";
 
 export default defineComponent({
-  name: "cities-comp",
+  props: {
+    images: {
+      type: Array,
+      required: true,
+    },
+  },
+  setup(props) {
+    const sliderRef = ref(null);
+
+    onMounted(() => {
+      imagesLoaded(sliderRef.value.querySelectorAll("img"), () => {
+        displacementSlider({
+          parent: sliderRef.value,
+          images: props.images,
+        });
+      });
+    });
+
+    const displacementSlider = (opts: any) => {
+      // ... código original aquí ...
+    };
+
+    return { sliderRef };
+  },
 });
 </script>
 <style lang="scss" scoped>
