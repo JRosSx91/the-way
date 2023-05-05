@@ -1,7 +1,13 @@
 <template>
-  <appHeader />
-  <router-view />
-  <appFooter />
+  <header>
+    <appHeader />
+  </header>
+  <main>
+    <router-view />
+  </main>
+  <footer>
+    <appFooter />
+  </footer>
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
