@@ -1,30 +1,20 @@
 <template>
-  <header id="header" class="flex flex-row justify-start m-0 p-1 bg-[#607d8b]">
-    <section
-      class="dark-light-btn bg-[#455a64] border-0 text-white cursor-pointer no-underline"
-    >
-      <button>Test 1</button>
-      <button>Test 2</button>
-    </section>
-    <h1 class="title align-middle justify-center text-white text-xl font-bold">
-      Lorem
-    </h1>
-    <nav
-      class="navigation dark-light-btn bg-[#455a64] border-0 text-white cursor-pointer no-underline"
-    >
-      <button v-if="store.phone"></button>
-      <ul v-else class="flex">
-        <li>
-          <a><p>Test 1</p></a>
-        </li>
-        <li>
-          <a><p>Test 2</p></a>
-        </li>
-        <li>
-          <a><p>Test 3</p></a>
-        </li>
-      </ul>
-    </nav>
+  <header>
+    <div class="inner">
+      <div class="logo">
+        <img
+          src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123024/wwf-logo.png"
+        />
+      </div>
+      <div class="burger"></div>
+      <nav>
+        <a class="active" href="#">Species</a>
+        <a href="#">About Us</a>
+        <a href="#">Our Work</a>
+        <a href="#">Get Involved</a>
+      </nav>
+      <a href="#" class="donate-link">Donate</a>
+    </div>
   </header>
 </template>
 <script lang="ts">
@@ -43,12 +33,104 @@ export default defineComponent({
 });
 </script>
 <style lang="scss" scoped>
-#header {
-  font-family: "Roboto", sans-serif;
+header {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 115px;
+  z-index: 10;
+  background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/123024/menutexture.png);
+  background-position: center top;
+  background-size: auto 200px;
+  background-repeat: repeat-x;
 
-  & .navigation {
-    box-shadow: 0 0 0 0.5px rgba(49, 49, 93, 0.03),
-      0 2px 5px 0 rgba(49, 49, 93, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.08);
+  .inner {
+    max-width: 1060px;
+    margin: 0 auto;
+    display: flex;
+    height: 70px;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .logo {
+    display: block;
+    width: 76px;
+    height: 90px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: white;
+    text-align: center;
+
+    img {
+      width: 45px;
+      margin-top: 10px;
+    }
+  }
+
+  nav {
+    display: none;
+
+    a {
+      font-family: "Arial", serif;
+      font-size: 12px;
+      color: #8c8c8e;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      text-decoration: none;
+      margin: 0 18px;
+
+      &.active,
+      &:hover {
+        color: white;
+      }
+    }
+
+    @media screen and (min-width: 800px) {
+      display: block;
+    }
+  }
+
+  .burger {
+    display: block;
+    position: relative;
+    top: -6px;
+    padding-left: 30px;
+
+    &:before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 30px;
+      height: 2px;
+      background: white;
+      box-shadow: 0 12px 0 0 white, 0 6px 0 0 white;
+    }
+
+    @media screen and (min-width: 800px) {
+      display: none;
+    }
+  }
+
+  .donate-link {
+    width: 72px;
+    text-align: center;
+    position: absolute;
+    right: 10px;
+    top: 27px;
+    font-family: "Arial", sans-serif;
+    font-size: 12px;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    text-decoration: none;
+    padding-bottom: 6px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
   }
 }
 </style>
