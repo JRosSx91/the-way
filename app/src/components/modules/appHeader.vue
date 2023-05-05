@@ -1,7 +1,7 @@
 <template>
-  <header id="header">
+  <header id="header" class="flex flex-row justify-start m-0 p-1 bg-[#607d8b]">
     <section class="dark-light-btn"></section>
-    <h1 class="title"></h1>
+    <h1 class="title align-middle text-white mr-1 text-xl font-bold"></h1>
     <nav class="navigation">
       <ul>
         <li></li>
