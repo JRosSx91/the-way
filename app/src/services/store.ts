@@ -5,6 +5,7 @@ const useStore = defineStore("store", {
   state: (): State => {
     return {
       dark: false,
+      phone: false,
     };
   },
 });
