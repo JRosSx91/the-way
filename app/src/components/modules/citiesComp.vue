@@ -1,5 +1,44 @@
 <template>
-    
+  <main>
+    <div id="slider">
+      <div class="slider-inner">
+        <div id="slider-content">
+          <div class="meta">Species</div>
+          <h2 id="slide-title">Amur <br />Leopard</h2>
+          <span data-slide-title="0">Amur <br />Leopard</span>
+          <span data-slide-title="1">Asiatic <br />Lion</span>
+          <span data-slide-title="2">Siberian <br />Tiger</span>
+          <span data-slide-title="3">Brown <br />Bear</span>
+          <div class="meta">Status</div>
+          <div id="slide-status">Critically Endangered</div>
+          <span data-slide-status="0">Critically Endangered</span>
+          <span data-slide-status="1">Endangered</span>
+          <span data-slide-status="2">Endangered</span>
+          <span data-slide-status="3">Least Concern</span>
+        </div>
+      </div>
+
+      <img
+        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123024/leopard2.jpg"
+      />
+      <img
+        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123024/lion2.jpg"
+      />
+      <img
+        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123024/tiger2.jpg"
+      />
+      <img
+        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123024/bear2.jpg"
+      />
+
+      <div id="pagination">
+        <button class="active" data-slide="0"></button>
+        <button data-slide="1"></button>
+        <button data-slide="2"></button>
+        <button data-slide="3"></button>
+      </div>
+    </div>
+  </main>
 </template>
 <style lang="scss" scoped>
 article,
@@ -195,107 +234,6 @@ html {
 body {
   background-color: #23272a;
   overflow: hidden;
-}
-
-header {
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 115px;
-  z-index: 10;
-  background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/123024/menutexture.png);
-  background-position: center top;
-  background-size: auto 200px;
-  background-repeat: repeat-x;
-
-  .inner {
-    max-width: 1060px;
-    margin: 0 auto;
-    display: flex;
-    height: 70px;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-  }
-
-  .logo {
-    display: block;
-    width: 76px;
-    height: 90px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: white;
-    text-align: center;
-
-    img {
-      width: 45px;
-      margin-top: 10px;
-    }
-  }
-
-  nav {
-    display: none;
-
-    a {
-      font-family: "Arial", serif;
-      font-size: 12px;
-      color: #8c8c8e;
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      text-decoration: none;
-      margin: 0 18px;
-
-      &.active,
-      &:hover {
-        color: white;
-      }
-    }
-
-    @media screen and (min-width: 800px) {
-      display: block;
-    }
-  }
-
-  .burger {
-    display: block;
-    position: relative;
-    top: -6px;
-    padding-left: 30px;
-
-    &:before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 30px;
-      height: 2px;
-      background: white;
-      box-shadow: 0 12px 0 0 white, 0 6px 0 0 white;
-    }
-
-    @media screen and (min-width: 800px) {
-      display: none;
-    }
-  }
-
-  .donate-link {
-    width: 72px;
-    text-align: center;
-    position: absolute;
-    right: 10px;
-    top: 27px;
-    font-family: "Arial", sans-serif;
-    font-size: 12px;
-    color: white;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    text-decoration: none;
-    padding-bottom: 6px;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
-  }
 }
 
 main {
