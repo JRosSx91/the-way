@@ -40,6 +40,13 @@
     </div>
   </main>
 </template>
+<script lang="ts">
+import { defineComponent } from "vue";
+
+export default defineComponent({
+  name: "cities-comp",
+});
+</script>
 <style lang="scss" scoped>
 article,
 aside,
