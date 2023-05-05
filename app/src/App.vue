@@ -1,5 +1,5 @@
 <template>
-  <router-view />
+  <router-view class="container" />
 </template>
 
 <script lang="ts">
@@ -11,7 +11,7 @@ export default defineComponent({
 });
 </script>
 
-<style>
+<style lang="scss" scoped>
 ::-webkit-scrollbar {
   width: 3px;
   height: 3px;
@@ -41,8 +41,11 @@ export default defineComponent({
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
   margin: 0 auto;
   padding: 0;
+
+  & .container {
+    color: black;
+  }
 }
 </style>
