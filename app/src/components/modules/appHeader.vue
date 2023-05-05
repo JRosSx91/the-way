@@ -2,9 +2,7 @@
   <header>
     <div class="inner">
       <div class="logo">
-        <img
-          src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123024/wwf-logo.png"
-        />
+        <img :src="logo" alt="logo" />
       </div>
       <div class="burger"></div>
       <nav>
@@ -27,6 +25,7 @@ export default defineComponent({
     const store = useStore();
 
     return {
+      logo: require("@/assets/img/prueba-logo-camino.png"),
       store,
     };
   },
@@ -67,8 +66,8 @@ header {
     text-align: center;
 
     img {
-      width: 45px;
-      margin-top: 10px;
+      width: 150px;
+      margin-top: 1.5rem;
     }
   }
 
