@@ -1,5 +1,5 @@
 <template>
-  <div id="header">
+  <header id="header">
     <section class="dark-light-btn"></section>
     <h1 class="title"></h1>
     <nav class="navigation">
@@ -9,7 +9,7 @@
         <li></li>
       </ul>
     </nav>
-  </div>
+  </header>
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";

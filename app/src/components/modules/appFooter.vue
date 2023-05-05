@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <footer id="footer">
     <address></address>
-  </div>
+  </footer>
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
