@@ -36,12 +36,13 @@ export default defineComponent({
   box-shadow: inset 0 0 6px rgb(0, 0, 0) !important;
 }
 #app {
+  box-sizing: border-box;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin: 0;
+  margin: 0 auto;
   padding: 0;
 }
 </style>
