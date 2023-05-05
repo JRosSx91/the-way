@@ -35,6 +35,10 @@ export default defineComponent({
   name: "app-header",
   setup() {
     const store = useStore();
+
+    return {
+      store,
+    };
   },
 });
 </script>
