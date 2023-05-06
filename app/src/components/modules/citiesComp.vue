@@ -32,6 +32,7 @@
 <script lang="ts">
 import { defineComponent, onMounted, ref } from "vue";
 import * as THREE from "three";
+import { Uniform, Texture } from "three";
 import { TweenLite } from "gsap";
 import imagesLoaded from "imagesloaded";
 
@@ -55,7 +56,7 @@ export default defineComponent({
     });
 
     const displacementSlider = (opts: any) => {
-        let vertex = `
+      let vertex = `
         varying vec2 vUv;
         void main() {
           vUv = uv;
@@ -63,7 +64,7 @@ export default defineComponent({
         }
     `;
 
-    let fragment = `
+      let fragment = `
         
         varying vec2 vUv;
 
@@ -93,187 +94,196 @@ export default defineComponent({
         }
     `;
 
-    let images = opts.images, image, sliderImages: any[] = [];
-    let canvasWidth = images[0].clientWidth;
-    let canvasHeight = images[0].clientHeight;
-    let parent = opts.parent;
-    let renderWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-    let renderHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+      let images = opts.images,
+        image,
+        sliderImages: any[] = [];
+      let canvasWidth = images[0].clientWidth;
+      let canvasHeight = images[0].clientHeight;
+      let parent = opts.parent;
+      let renderWidth = Math.max(
+        document.documentElement.clientWidth,
+        window.innerWidth || 0
+      );
+      let renderHeight = Math.max(
+        document.documentElement.clientHeight,
+        window.innerHeight || 0
+      );
 
-    let renderW: any, renderH: any;
+      let renderW: any, renderH: any;
 
-    if( renderWidth > canvasWidth ) {
+      if (renderWidth > canvasWidth) {
         renderW = renderWidth;
-    } else {
+      } else {
         renderW = canvasWidth;
-    }
+      }
 
-    renderH = canvasHeight;
+      renderH = canvasHeight;
 
-    let renderer = new THREE.WebGLRenderer({
+      let renderer = new THREE.WebGLRenderer({
         antialias: false,
-    });
+      });
 
-    renderer.setPixelRatio( window.devicePixelRatio );
-    renderer.setClearColor( 0x23272A, 1.0 );
-    renderer.setSize( renderW, renderH );
-    parent.appendChild( renderer.domElement );
+      renderer.setPixelRatio(window.devicePixelRatio);
+      renderer.setClearColor(0x23272a, 1.0);
+      renderer.setSize(renderW, renderH);
+      parent.appendChild(renderer.domElement);
 
-    let loader = new THREE.TextureLoader();
-    loader.crossOrigin = "anonymous";
+      let loader = new THREE.TextureLoader();
+      loader.crossOrigin = "anonymous";
 
-    images.forEach( ( img: any ) => {
-
-        image = loader.load( img.getAttribute( 'src' ) + '?v=' + Date.now() );
+      images.forEach((img: any) => {
+        image = loader.load(img.getAttribute("src") + "?v=" + Date.now());
         image.magFilter = image.minFilter = THREE.LinearFilter;
         image.anisotropy = renderer.capabilities.getMaxAnisotropy();
-        sliderImages.push( image );
+        sliderImages.push(image);
+      });
 
-    });
-
-    let scene = new THREE.Scene();
-    scene.background = new THREE.Color( 0x23272A );
-    let camera = new THREE.OrthographicCamera(
+      let scene = new THREE.Scene();
+      scene.background = new THREE.Color(0x23272a);
+      let camera = new THREE.OrthographicCamera(
         renderWidth / -2,
         renderWidth / 2,
         renderHeight / 2,
         renderHeight / -2,
         1,
         1000
-    );
+      );
 
-    camera.position.z = 1;
+      camera.position.z = 1;
 
-    let mat = new THREE.ShaderMaterial({
+      let mat = new THREE.ShaderMaterial({
         uniforms: {
-            dispFactor: { type: "f", value: 0.0 },
-            currentImage: { type: "t", value: sliderImages[0] },
-            nextImage: { type: "t", value: sliderImages[1] },
+          dispFactor: new Uniform(0.0),
+          currentImage: new Uniform(sliderImages[0] as Texture),
+          nextImage: new Uniform(sliderImages[1] as Texture),
         },
         vertexShader: vertex,
         fragmentShader: fragment,
         transparent: true,
-        opacity: 1.0
-    });
+        opacity: 1.0,
+      });
 
-    let geometry = new THREE.PlaneBufferGeometry(
+      let geometry = new THREE.PlaneGeometry(
         parent.offsetWidth,
         parent.offsetHeight,
         1
-    );
-    let object = new THREE.Mesh(geometry, mat);
-    object.position.set(0, 0, 0);
-    scene.add(object);
+      );
+      let object = new THREE.Mesh(geometry, mat);
+      object.position.set(0, 0, 0);
+      scene.add(object);
 
-    let addEvents = function(){
-
-        let pagButtons = Array.from(document.getElementById('pagination')!.querySelectorAll('button'));
+      let addEvents = function () {
+        let pagButtons = Array.from(
+          document.getElementById("pagination")!.querySelectorAll("button")
+        );
         let isAnimating = false;
 
-        pagButtons.forEach( (el) => {
+        pagButtons.forEach((el) => {
+          el.addEventListener("click", function () {
+            if (!isAnimating) {
+              isAnimating = true;
 
-            el.addEventListener('click', function() {
+              document
+                .getElementById("pagination")!
+                .querySelectorAll(".active")[0].className = "";
+              this.className = "active";
 
-                if( !isAnimating ) {
+              let slideId = parseInt(this.dataset.slide!, 10);
 
-                    isAnimating = true;
+              mat.uniforms.nextImage.value = sliderImages[slideId];
 
-                    document.getElementById('pagination')!.querySelectorAll('.active')[0].className = '';
-                    this.className = 'active';
+              TweenLite.to(mat.uniforms.dispFactor, 1, {
+                value: 1,
+                ease: "Expo.easeInOut",
+                onComplete: function () {
+                  mat.uniforms.currentImage.value = sliderImages[slideId];
+                  mat.uniforms.dispFactor.value = 0.0;
+                  isAnimating = false;
+                },
+              });
 
-                    let slideId = parseInt( this.dataset.slide, 10 );
+              let slideTitleEl = document.getElementById("slide-title");
+              let slideStatusEl = document.getElementById("slide-status");
+              let nextSlideTitle = document.querySelectorAll(
+                `[data-slide-title="${slideId}"]`
+              )[0].innerHTML;
+              let nextSlideStatus = document.querySelectorAll(
+                `[data-slide-status="${slideId}"]`
+              )[0].innerHTML;
 
-                    mat.uniforms.nextImage.value = sliderImages[slideId];
-                    mat.uniforms.nextImage.needsUpdate = true;
+              TweenLite.fromTo(
+                slideTitleEl,
+                0.5,
+                {
+                  autoAlpha: 1,
+                  y: 0,
+                },
+                {
+                  autoAlpha: 0,
+                  y: 20,
+                  ease: "Expo.easeIn",
+                  onComplete: function () {
+                    slideTitleEl!.innerHTML = nextSlideTitle;
 
-                    TweenLite.to( mat.uniforms.dispFactor, 1, {
-                        value: 1,
-                        ease: 'Expo.easeInOut',
-                        onComplete: function () {
-                            mat.uniforms.currentImage.value = sliderImages[slideId];
-                            mat.uniforms.currentImage.needsUpdate = true;
-                            mat.uniforms.dispFactor.value = 0.0;
-                            isAnimating = false;
-                        }
+                    TweenLite.to(slideTitleEl, 0.5, {
+                      autoAlpha: 1,
+                      y: 0,
                     });
-
-                    let slideTitleEl = document.getElementById('slide-title');
-                    let slideStatusEl = document.getElementById('slide-status');
-                    let nextSlideTitle = document.querySelectorAll(`[data-slide-title="${slideId}"]`)[0].innerHTML;
-                    let nextSlideStatus = document.querySelectorAll(`[data-slide-status="${slideId}"]`)[0].innerHTML;
-
-                    TweenLite.fromTo( slideTitleEl, 0.5,
-                        {
-                            autoAlpha: 1,
-                            y: 0
-                        },
-                        {
-                            autoAlpha: 0,
-                            y: 20,
-                            ease: 'Expo.easeIn',
-                            onComplete: function () {
-                                slideTitleEl.innerHTML = nextSlideTitle;
-
-                                TweenLite.to( slideTitleEl, 0.5, {
-                                    autoAlpha: 1,
-                                    y: 0,
-                                })
-                            }
-                        });
-
-                    TweenLite.fromTo( slideStatusEl, 0.5,
-                        {
-                            autoAlpha: 1,
-                            y: 0
-                        },
-                        {
-                            autoAlpha: 0,
-                            y: 20,
-                            ease: 'Expo.easeIn',
-                            onComplete: function () {
-                                slideStatusEl.innerHTML = nextSlideStatus;
-
-                                TweenLite.to( slideStatusEl, 0.5, {
-                                    autoAlpha: 1,
-                                    y: 0,
-                                    delay: 0.1,
-                                })
-                            }
-                        });
-
+                  },
                 }
+              );
 
-            });
+              TweenLite.fromTo(
+                slideStatusEl,
+                0.5,
+                {
+                  autoAlpha: 1,
+                  y: 0,
+                },
+                {
+                  autoAlpha: 0,
+                  y: 20,
+                  ease: "Expo.easeIn",
+                  onComplete: function () {
+                    slideStatusEl!.innerHTML = nextSlideStatus;
 
+                    TweenLite.to(slideStatusEl, 0.5, {
+                      autoAlpha: 1,
+                      y: 0,
+                      delay: 0.1,
+                    });
+                  },
+                }
+              );
+            }
+          });
         });
+      };
 
-    };
+      addEvents();
 
-    addEvents();
-
-    window.addEventListener( 'resize' , function(e) {
+      window.addEventListener("resize", function (e) {
         renderer.setSize(renderW, renderH);
-    });
+      });
 
-    let animate = function() {
+      let animate = function () {
         requestAnimationFrame(animate);
 
         renderer.render(scene, camera);
+      };
+      animate();
     };
-    animate();
-};
 
-imagesLoaded( document.querySelectorAll('img'), () => {
+    imagesLoaded(document.querySelectorAll("img"), () => {
+      document.body.classList.remove("loading");
 
-    document.body.classList.remove('loading');
-
-    const el = document.getElementById('slider');
-    const imgs = Array.from(document.querySelectorAll('img'));
-    new displacementSlider({
+      const el = document.getElementById("slider");
+      const imgs = Array.from(document.querySelectorAll("img"));
+      displacementSlider({
         parent: el,
-        images: imgs
+        images: imgs,
+      });
     });
-    };
 
     return { sliderRef };
   },
