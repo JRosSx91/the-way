@@ -1,1 +1,1 @@
-import "imagesloaded.d.ts";
+import "./three";

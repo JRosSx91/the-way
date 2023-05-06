@@ -9,6 +9,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@types/three": "^0.152.0",
     "core-js": "^3.8.3",
     "gsap": "^3.11.5",
     "imagesloaded": "^5.0.0",
