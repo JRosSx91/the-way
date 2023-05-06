@@ -174,7 +174,11 @@ export default defineComponent({
 
       let addEvents = function () {
         let pagButtons = Array.from(
-          document.getElementById("pagination")!.querySelectorAll("button")
+          (
+            document.getElementById("pagination") || {
+              querySelectorAll: () => [],
+            }
+          ).querySelectorAll("button")
         );
         let isAnimating = false;
 
@@ -183,12 +187,21 @@ export default defineComponent({
             if (!isAnimating) {
               isAnimating = true;
 
-              document
-                .getElementById("pagination")!
-                .querySelectorAll(".active")[0].className = "";
+              let paginationElement = document.getElementById("pagination");
+
+              if (paginationElement) {
+                let activeElements =
+                  paginationElement.querySelectorAll(".active");
+
+                if (activeElements.length > 0) {
+                  activeElements[0].className = "";
+                }
+              }
               this.className = "active";
 
-              let slideId = parseInt(this.dataset.slide!, 10);
+              let slideId = this.dataset.slide
+                ? parseInt(this.dataset.slide, 10)
+                : 0;
 
               mat.uniforms.nextImage.value = sliderImages[slideId];
 
@@ -223,7 +236,9 @@ export default defineComponent({
                   y: 20,
                   ease: "Expo.easeIn",
                   onComplete: function () {
-                    slideTitleEl!.innerHTML = nextSlideTitle;
+                    if (slideTitleEl) {
+                      slideTitleEl.innerHTML = nextSlideTitle;
+                    }
 
                     TweenLite.to(slideTitleEl, 0.5, {
                       autoAlpha: 1,
@@ -279,7 +294,7 @@ export default defineComponent({
 
       const el = document.getElementById("slider");
       const imgs = Array.from(document.querySelectorAll("img"));
-      displacementSlider({
+      new displacementSlider({
         parent: el,
         images: imgs,
       });
