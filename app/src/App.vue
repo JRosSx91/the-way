@@ -1,7 +1,5 @@
 <template>
-  <div class="container">
-    <router-view />
-  </div>
+  <router-view />
 </template>
 
 <script lang="ts">
@@ -45,9 +43,5 @@ export default defineComponent({
   text-align: center;
   margin: 0 auto;
   padding: 0;
-
-  & .container {
-    color: black;
-  }
 }
 </style>
