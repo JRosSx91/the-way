@@ -50,7 +50,7 @@ export default defineComponent({
       imagesLoaded(sliderRef.value.querySelectorAll("img"), () => {
         displacementSlider({
           parent: sliderRef.value,
-          images: props.images,
+          images: sliderRef.value.querySelectorAll("img"),
         });
       });
     });

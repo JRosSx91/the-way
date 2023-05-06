@@ -14,10 +14,10 @@ export default defineComponent({
   components: { appHeader, appFooter, citiesComp },
   setup() {
     return {
-      img1: require("https://s3-us-west-2.amazonaws.com/s.cdpn.io/123024/leopard2.jpg"),
-      img2: require("https://s3-us-west-2.amazonaws.com/s.cdpn.io/123024/lion2.jpg"),
-      img3: require("https://s3-us-west-2.amazonaws.com/s.cdpn.io/123024/tiger2.jpg"),
-      img4: require("https://s3-us-west-2.amazonaws.com/s.cdpn.io/123024/bear2.jpg"),
+      img1: require("@/assets/img/leopard2.jpg"),
+      img2: require("@/assets/img/lion2.jpg"),
+      img3: require("@/assets/img/tiger2.jpg"),
+      img4: require("@/assets/img/bear2.jpg"),
       appHeader,
       appFooter,
       citiesComp,
