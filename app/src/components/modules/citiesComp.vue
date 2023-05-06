@@ -33,7 +33,7 @@
 import { defineComponent, onMounted, ref } from "vue";
 import * as THREE from "three";
 import { Uniform, Texture } from "three";
-import { TweenLite } from "gsap";
+import gsap from "gsap";
 import imagesLoaded from "imagesloaded";
 
 export default defineComponent({
@@ -205,7 +205,8 @@ export default defineComponent({
 
               mat.uniforms.nextImage.value = sliderImages[slideId];
 
-              TweenLite.to(mat.uniforms.dispFactor, 1, {
+              gsap.to(mat.uniforms.dispFactor, {
+                duration: 1,
                 value: 1,
                 ease: "Expo.easeInOut",
                 onComplete: function () {
@@ -224,10 +225,10 @@ export default defineComponent({
                 `[data-slide-status="${slideId}"]`
               )[0].innerHTML;
 
-              TweenLite.fromTo(
+              gsap.fromTo(
                 slideTitleEl,
-                0.5,
                 {
+                  duration: 0.5,
                   autoAlpha: 1,
                   y: 0,
                 },
@@ -240,7 +241,8 @@ export default defineComponent({
                       slideTitleEl.innerHTML = nextSlideTitle;
                     }
 
-                    TweenLite.to(slideTitleEl, 0.5, {
+                    gsap.to(slideTitleEl, {
+                      duration: 0.5,
                       autoAlpha: 1,
                       y: 0,
                     });
@@ -248,10 +250,10 @@ export default defineComponent({
                 }
               );
 
-              TweenLite.fromTo(
+              gsap.fromTo(
                 slideStatusEl,
-                0.5,
                 {
+                  duration: 0.5,
                   autoAlpha: 1,
                   y: 0,
                 },
@@ -264,7 +266,8 @@ export default defineComponent({
                       slideTitleEl.innerHTML = nextSlideStatus;
                     }
 
-                    TweenLite.to(slideStatusEl, 0.5, {
+                    gsap.to(slideStatusEl, {
+                      duration: 0.5,
                       autoAlpha: 1,
                       y: 0,
                       delay: 0.1,
