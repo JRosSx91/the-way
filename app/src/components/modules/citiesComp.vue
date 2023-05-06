@@ -260,7 +260,9 @@ export default defineComponent({
                   y: 20,
                   ease: "Expo.easeIn",
                   onComplete: function () {
-                    slideStatusEl!.innerHTML = nextSlideStatus;
+                    if (slideTitleEl) {
+                      slideTitleEl.innerHTML = nextSlideStatus;
+                    }
 
                     TweenLite.to(slideStatusEl, 0.5, {
                       autoAlpha: 1,
@@ -277,7 +279,7 @@ export default defineComponent({
 
       addEvents();
 
-      window.addEventListener("resize", function (e) {
+      window.addEventListener("resize", function () {
         renderer.setSize(renderW, renderH);
       });
 
@@ -288,17 +290,6 @@ export default defineComponent({
       };
       animate();
     };
-
-    imagesLoaded(document.querySelectorAll("img"), () => {
-      document.body.classList.remove("loading");
-
-      const el = document.getElementById("slider");
-      const imgs = Array.from(document.querySelectorAll("img"));
-      new displacementSlider({
-        parent: el,
-        images: imgs,
-      });
-    });
 
     return { sliderRef };
   },

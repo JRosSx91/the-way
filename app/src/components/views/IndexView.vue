@@ -1,6 +1,6 @@
 <template>
   <appHeader />
-  <citiesComp />
+  <citiesComp :images="[img1, img2, img3, img4]" />
   <appFooter />
 </template>
 <script lang="ts">
@@ -14,6 +14,10 @@ export default defineComponent({
   components: { appHeader, appFooter, citiesComp },
   setup() {
     return {
+      img1: require("https://s3-us-west-2.amazonaws.com/s.cdpn.io/123024/leopard2.jpg"),
+      img2: require("https://s3-us-west-2.amazonaws.com/s.cdpn.io/123024/lion2.jpg"),
+      img3: require("https://s3-us-west-2.amazonaws.com/s.cdpn.io/123024/tiger2.jpg"),
+      img4: require("https://s3-us-west-2.amazonaws.com/s.cdpn.io/123024/bear2.jpg"),
       appHeader,
       appFooter,
       citiesComp,
