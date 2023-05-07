@@ -1,26 +1,27 @@
 <template>
   <header>
     <div class="inner">
+      <!-- <HeaderLogoComp /> -->
       <div class="logo">
         <img :src="logo" alt="logo" />
       </div>
       <div class="burger"></div>
-      <nav>
-        <a class="active" href="#">Species</a>
-        <a href="#">About Us</a>
-        <a href="#">Our Work</a>
-        <a href="#">Get Involved</a>
-      </nav>
+      <!-- NavMenuComp-->
+
+      <!-- DonateComp -->
       <a href="#" class="donate-link">Donate</a>
     </div>
   </header>
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
+import navMenu from "@/components/modules/header/navMenu.vue";
+import headerLogo from "@/components/modules/header/headerLogo.vue";
 import useStore from "@/store";
 
 export default defineComponent({
   name: "header-layout",
+  components: {}
   setup() {
     const store = useStore();
 
@@ -68,29 +69,6 @@ header {
     img {
       width: 150px;
       margin-top: 1.5rem;
-    }
-  }
-
-  nav {
-    display: none;
-
-    a {
-      font-family: "Arial", serif;
-      font-size: 12px;
-      color: #8c8c8e;
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      text-decoration: none;
-      margin: 0 18px;
-
-      &.active,
-      &:hover {
-        color: white;
-      }
-    }
-
-    @media screen and (min-width: 800px) {
-      display: block;
     }
   }
 
