@@ -1,9 +1,10 @@
 <template>
   <nav>
-    <a class="active" href="#">Species</a>
-    <a href="#">About Us</a>
-    <a href="#">Our Work</a>
-    <a href="#">Get Involved</a>
+    <a class="active" href="#">History</a>
+    <a href="#">Legends</a>
+    <a href="#">RRSS</a>
+    <a href="#">Need help?</a>
+    <a href="#">AI Assistant (soon)</a>
   </nav>
 </template>
 <script lang="ts">
