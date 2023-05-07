@@ -2,9 +2,8 @@
   <header>
     <div class="inner">
       <headerLogo />
-      <div class="burger"></div>
       <navMenu />
-      <!-- DonateComp -->
+      <donateComp />
     </div>
   </header>
 </template>
@@ -12,11 +11,12 @@
 import { defineComponent } from "vue";
 import navMenu from "@/components/modules/header/navMenu.vue";
 import headerLogo from "@/components/modules/header/headerLogo.vue";
+import donateComp from "@/components/common/donateComp.vue";
 import useStore from "@/store";
 
 export default defineComponent({
   name: "header-layout",
-  components: { navMenu, headerLogo },
+  components: { navMenu, headerLogo, donateComp },
   setup() {
     const store = useStore();
 
@@ -24,6 +24,7 @@ export default defineComponent({
       store,
       navMenu,
       headerLogo,
+      donateComp,
     };
   },
 });
@@ -50,28 +51,6 @@ header {
     align-items: center;
     justify-content: center;
     position: relative;
-  }
-
-  .burger {
-    display: block;
-    position: relative;
-    top: -6px;
-    padding-left: 30px;
-
-    &:before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 30px;
-      height: 2px;
-      background: white;
-      box-shadow: 0 12px 0 0 white, 0 6px 0 0 white;
-    }
-
-    @media screen and (min-width: 800px) {
-      display: none;
-    }
   }
 }
 </style>
