@@ -1,7 +1,7 @@
 <template>
   <header>
     <div class="inner">
-      <!-- <HeaderLogoComp /> -->
+      <headerLogo />
       <div class="burger"></div>
       <navMenu />
       <!-- DonateComp -->
@@ -17,7 +17,7 @@ import useStore from "@/store";
 
 export default defineComponent({
   name: "header-layout",
-  components: { navMenu, headerLogo},
+  components: { navMenu, headerLogo },
   setup() {
     const store = useStore();
 
