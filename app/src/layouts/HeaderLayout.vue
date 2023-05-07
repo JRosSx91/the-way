@@ -5,7 +5,6 @@
       <div class="burger"></div>
       <navMenu />
       <!-- DonateComp -->
-      <a href="#" class="donate-link">Donate</a>
     </div>
   </header>
 </template>
@@ -73,22 +72,6 @@ header {
     @media screen and (min-width: 800px) {
       display: none;
     }
-  }
-
-  .donate-link {
-    width: 72px;
-    text-align: center;
-    position: absolute;
-    right: 10px;
-    top: 27px;
-    font-family: "Arial", sans-serif;
-    font-size: 12px;
-    color: white;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    text-decoration: none;
-    padding-bottom: 6px;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
   }
 }
 </style>
