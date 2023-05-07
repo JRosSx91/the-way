@@ -7,6 +7,6 @@
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: "app-footer",
+  name: "footer-layout",
 });
 </script>

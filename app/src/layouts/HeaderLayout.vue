@@ -17,10 +17,10 @@
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
-import useStore from "@/services/store";
+import useStore from "@/store";
 
 export default defineComponent({
-  name: "app-header",
+  name: "header-layout",
   setup() {
     const store = useStore();
 
