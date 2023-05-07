@@ -1,35 +1,45 @@
 <template>
-		<div id="slider">
-			<div class="slider-inner">
-				<div id="slider-content">
-					<div class="meta">Species</div>
-					<h2 id="slide-title">Amur <br>Leopard</h2>
-					<span data-slide-title="0">Amur <br>Leopard</span>
-					<span data-slide-title="1">Asiatic <br>Lion</span>
-					<span data-slide-title="2">Siberian <br>Tiger</span>
-					<span data-slide-title="3">Brown <br>Bear</span>
-					<div class="meta">Status</div>
-					<div id="slide-status">Critically Endangered</div>
-					<span data-slide-status="0">Critically Endangered</span>
-					<span data-slide-status="1">Endangered</span>
-					<span data-slide-status="2">Endangered</span>
-					<span data-slide-status="3">Least Concern</span>
-				</div>
-			</div>
+  <div class="content">
+    <div id="slider">
+      <div class="images">
+        <img
+          src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123024/leopard2.jpg"
+        />
+        <img
+          src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123024/lion2.jpg"
+        />
+        <img
+          src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123024/tiger2.jpg"
+        />
+        <img
+          src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123024/bear2.jpg"
+        />
+      </div>
+      <div class="slider-inner">
+        <div id="slider-content">
+          <div class="meta">Species</div>
+          <h2 id="slide-title">Amur <br />Leopard</h2>
+          <span data-slide-title="0">Amur <br />Leopard</span>
+          <span data-slide-title="1">Asiatic <br />Lion</span>
+          <span data-slide-title="2">Siberian <br />Tiger</span>
+          <span data-slide-title="3">Brown <br />Bear</span>
+          <div class="meta">Status</div>
+          <div id="slide-status">Critically Endangered</div>
+          <span data-slide-status="0">Critically Endangered</span>
+          <span data-slide-status="1">Endangered</span>
+          <span data-slide-status="2">Endangered</span>
+          <span data-slide-status="3">Least Concern</span>
+        </div>
+      </div>
 
-			<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123024/leopard2.jpg" />
-			<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123024/lion2.jpg" />
-			<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123024/tiger2.jpg" />
-			<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123024/bear2.jpg" />
-
-			<div id="pagination">
-				<button class="active" data-slide="0"></button>
-				<button data-slide="1"></button>
-				<button data-slide="2"></button>
-				<button data-slide="3"></button>
-			</div>
-
-		</div>
+      <div id="pagination">
+        <button class="active" data-slide="0"></button>
+        <button data-slide="1"></button>
+        <button data-slide="2"></button>
+        <button data-slide="3"></button>
+      </div>
+    </div>
+  </div>
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
@@ -37,320 +47,20 @@ import * as THREE from "three";
 import gsap from "gsap";
 import imagesLoaded from "imagesloaded";
 
-export default defineComponent({
-  const myAnimation = () => {
-    new hoverEffect({
-      parent: document.querySelector(".my-div"),
-      intensity: 0.3,
-      image1: require("@/assets/img/leopard2.jpg"),
-      image2: require("@/assets/img/lion2.jpg"),
-      displacementImage: require("@/assets/img/1.jpg"),
-    });
-  },
-});
+export default defineComponent({});
 </script>
 
 <style lang="scss" scoped>
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-main,
-nav,
-section,
-summary {
-  display: block;
-}
-audio,
-canvas,
-video {
-  display: inline-block;
-}
-audio:not([controls]) {
-  display: none;
-  height: 0;
-}
-[hidden] {
-  display: none;
-}
-html {
-  font-family: sans-serif;
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-}
-body {
-  margin: 0;
-}
-a:focus {
-  outline: thin dotted;
-}
-a:active,
-a:hover {
-  outline: 0;
-}
-h1 {
-  font-size: 2em;
-  margin: 0.67em 0;
-}
-abbr[title] {
-  border-bottom: 1px dotted;
-}
-b,
-strong {
-  font-weight: bold;
-}
-dfn {
-  font-style: italic;
-}
-hr {
-  -moz-box-sizing: content-box;
-  box-sizing: content-box;
-  height: 0;
-}
-mark {
-  background: #ff0;
-  color: #000;
-}
-code,
-kbd,
-pre,
-samp {
-  font-family: monospace, serif;
-  font-size: 1em;
-}
-pre {
-  white-space: pre-wrap;
-}
-q {
-  quotes: "\201C""\201D""\2018""\2019";
-}
-small {
-  font-size: 80%;
-}
-sub,
-sup {
-  font-size: 75%;
-  line-height: 0;
-  position: relative;
-  vertical-align: baseline;
-}
-sup {
-  top: -0.5em;
-}
-sub {
-  bottom: -0.25em;
-}
-img {
-  border: 0;
-}
-svg:not(:root) {
-  overflow: hidden;
-}
-figure {
-  margin: 0;
-}
-fieldset {
-  border: 1px solid #c0c0c0;
-  margin: 0 2px;
-  padding: 0.35em 0.625em 0.75em;
-}
-legend {
-  border: 0;
-  padding: 0;
-}
-button,
-input,
-select,
-textarea {
-  font-family: inherit;
-  font-size: 100%;
-  margin: 0;
-}
-button,
-input {
-  line-height: normal;
-}
-button,
-select {
-  text-transform: none;
-}
-button,
-html input[type="button"],
-input[type="reset"],
-input[type="submit"] {
-  -webkit-appearance: button;
-  cursor: pointer;
-}
-button[disabled],
-html input[disabled] {
-  cursor: default;
-}
-input[type="checkbox"],
-input[type="radio"] {
-  box-sizing: border-box;
-  padding: 0;
-}
-input[type="search"] {
-  -webkit-appearance: textfield;
-  -moz-box-sizing: content-box;
-  -webkit-box-sizing: content-box;
-  box-sizing: content-box;
-}
-input[type="search"]::-webkit-search-cancel-button,
-input[type="search"]::-webkit-search-decoration {
-  -webkit-appearance: none;
-}
-button::-moz-focus-inner,
-input::-moz-focus-inner {
-  border: 0;
-  padding: 0;
-}
-textarea {
-  overflow: auto;
-  vertical-align: top;
-}
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-*,
-*::after,
-*::before {
-  box-sizing: border-box;
-}
-
-::selection {
-  background-color: grey;
-  color: white;
-}
-
-::-moz-selection {
-  background-color: grey;
-  color: white;
-}
-
-@import url("https://use.typekit.net/euz1eqv.css");
-
-html {
-  background: #fff;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-}
-
 body {
   background-color: #23272a;
   overflow: hidden;
 }
 
-header {
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 115px;
-  z-index: 10;
-  background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/123024/menutexture.png);
-  background-position: center top;
-  background-size: auto 200px;
-  background-repeat: repeat-x;
-
-  .inner {
-    max-width: 1060px;
-    margin: 0 auto;
-    display: flex;
-    height: 70px;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-  }
-
-  .logo {
-    display: block;
-    width: 76px;
-    height: 90px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: white;
-    text-align: center;
-
-    img {
-      width: 45px;
-      margin-top: 10px;
-    }
-  }
-
-  nav {
-    display: none;
-
-    a {
-      font-family: "Arial", serif;
-      font-size: 12px;
-      color: #8c8c8e;
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      text-decoration: none;
-      margin: 0 18px;
-
-      &.active,
-      &:hover {
-        color: white;
-      }
-    }
-
-    @media screen and (min-width: 800px) {
-      display: block;
-    }
-  }
-
-  .burger {
-    display: block;
-    position: relative;
-    top: -6px;
-    padding-left: 30px;
-
-    &:before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 30px;
-      height: 2px;
-      background: white;
-      box-shadow: 0 12px 0 0 white, 0 6px 0 0 white;
-    }
-
-    @media screen and (min-width: 800px) {
-      display: none;
-    }
-  }
-
-  .donate-link {
-    width: 72px;
-    text-align: center;
-    position: absolute;
-    right: 10px;
-    top: 27px;
-    font-family: "Arial", sans-serif;
-    font-size: 12px;
-    color: white;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    text-decoration: none;
-    padding-bottom: 6px;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
-  }
-}
-
-main {
+.content {
+  background-color: #23272a;
   position: relative;
   width: 100%;
-  height: 100vh;
+  height: 100%;
 }
 
 #slider {
@@ -372,7 +82,7 @@ main {
 
   img {
     width: 100%;
-    max-width: 100%;
+    min-width: 1120px;
     position: relative;
     z-index: 0;
   }
@@ -391,6 +101,8 @@ main {
 
 #slider-content {
   padding: 0 10px;
+  position: absolute;
+  top: 8%;
 
   h2 {
     font-family: "acta-display", serif;
@@ -451,7 +163,7 @@ main {
 
 #pagination {
   position: absolute;
-  top: 50%;
+  top: 12%;
   transform: translateY(-50%);
   right: 30px;
   z-index: 6;
