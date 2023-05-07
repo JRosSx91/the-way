@@ -2,12 +2,8 @@
   <header>
     <div class="inner">
       <!-- <HeaderLogoComp /> -->
-      <div class="logo">
-        <img :src="logo" alt="logo" />
-      </div>
       <div class="burger"></div>
-      <!-- NavMenuComp-->
-
+      <navMenu />
       <!-- DonateComp -->
       <a href="#" class="donate-link">Donate</a>
     </div>
@@ -21,13 +17,14 @@ import useStore from "@/store";
 
 export default defineComponent({
   name: "header-layout",
-  components: {}
+  components: { navMenu, headerLogo},
   setup() {
     const store = useStore();
 
     return {
-      logo: require("@/assets/img/prueba-logo-camino.png"),
       store,
+      navMenu,
+      headerLogo,
     };
   },
 });
@@ -54,22 +51,6 @@ header {
     align-items: center;
     justify-content: center;
     position: relative;
-  }
-
-  .logo {
-    display: block;
-    width: 76px;
-    height: 90px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: white;
-    text-align: center;
-
-    img {
-      width: 150px;
-      margin-top: 1.5rem;
-    }
   }
 
   .burger {
