@@ -16,12 +16,12 @@
           <span data-slide-status="2">Endangered</span>
           <span data-slide-status="3">Least Concern</span>
         </div>
-      </div>
-      <div class="images">
-        <img :src="img1" />
-        <img :src="img2" />
-        <img :src="img3" />
-        <img :src="img4" />
+        <div class="images">
+          <img :src="img1" />
+          <img :src="img2" />
+          <img :src="img3" />
+          <img :src="img4" />
+        </div>
       </div>
       <div id="pagination">
         <button class="active" data-slide="0"></button>
@@ -128,6 +128,7 @@ void main() {
         });
         console.log("sliderImages:", sliderImages);
         let scene = new THREE.Scene();
+        console.log("Hay escena", scene);
         scene.background = new THREE.Color(0x23272a);
         let camera = new THREE.OrthographicCamera(
           renderWidth / -2,
@@ -146,17 +147,19 @@ void main() {
             dispFactor: {
               value: 0.0,
             },
-            currentImage: { value: new THREE.Uniform(sliderImages[0]) },
-            nextImage: { value: new THREE.Uniform(sliderImages[1]) },
+            currentImage: { value: sliderImages[0] },
+            nextImage: { value: sliderImages[1] },
           },
           vertexShader: vertex,
           fragmentShader: fragment,
           transparent: true,
           opacity: 1.0,
         });
-
+        console.log("mat: ", mat);
         const handleButtonClick = (slideId: number) => {
           console.log("handleButtonClick ejecutado:", slideId);
+          console.log("Slide ID:", slideId);
+
           if (mat && mat.uniforms) {
             mat.uniforms.nextImage.value = sliderImages[slideId];
 
@@ -164,11 +167,13 @@ void main() {
               duration: 1,
               value: 1,
               ease: "Expo.easeInOut",
-              onComplete: function () {
-                mat.uniforms.currentImage.value = sliderImages[slideId];
-                mat.uniforms.dispFactor.value = 0.0;
+              onUpdate: function () {
+                if (mat.uniforms.dispFactor.value >= 1) {
+                  mat.uniforms.currentImage.value = sliderImages[slideId];
+                  mat.uniforms.dispFactor.value = 0.0;
 
-                isAnimating = false;
+                  isAnimating = false;
+                }
               },
             });
 
@@ -247,7 +252,7 @@ void main() {
           const paginationElement = document.getElementById("pagination");
 
           if (paginationElement !== null) {
-            const pagButtons = Array.from(
+            const pagButtons: HTMLButtonElement[] = Array.from(
               paginationElement.querySelectorAll("button")
             );
             for (let i = 0; i < pagButtons.length; i++) {
@@ -337,7 +342,7 @@ body {
     width: 100%;
     max-width: 100%;
     position: relative;
-    z-index: 0;
+    z-index: -500;
   }
 }
 
@@ -348,7 +353,7 @@ canvas {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 2;
+  z-index: 100;
 }
 
 .slider-inner {
@@ -428,12 +433,13 @@ canvas {
   width: 100%;
   height: 100vh;
   overflow: hidden;
+  z-index: -500;
 }
 
 .images img {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 150%;
+  left: 150%;
   width: 100%;
   height: 100vh;
   object-fit: cover;
@@ -441,7 +447,7 @@ canvas {
 
 #pagination {
   position: absolute;
-  top: 50%;
+  top: 40vh;
   transform: translateY(-50%);
   right: 30px;
   z-index: 6;
