@@ -309,8 +309,8 @@ void main() {
       });
     });
     return {
-      img1: require("@/assets/img/leopard2.jpg"),
-      img2: require("@/assets/img/lion2.jpg"),
+      img1: require("@/assets/img/burgos.jpg"),
+      img2: require("@/assets/img/leon2.jpg"),
       img3: require("@/assets/img/tiger2.jpg"),
       img4: require("@/assets/img/bear2.jpg"),
     };
@@ -319,9 +319,10 @@ void main() {
 </script>
 
 <style lang="scss" scoped>
-body {
+* {
   background-color: #23272a;
   overflow: hidden;
+  box-sizing: content-box;
 }
 
 .content {
@@ -329,6 +330,8 @@ body {
   position: relative;
   width: 100%;
   height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 #slider {
@@ -347,11 +350,11 @@ body {
 }
 
 canvas {
-  width: 150%;
-  height: 150%;
+  width: 100vw;
+  height: 100vh;
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 0;
+  left: 0;
   transform: translate(-50%, -50%);
   z-index: 100;
 }
