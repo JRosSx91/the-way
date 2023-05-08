@@ -412,10 +412,25 @@ canvas {
     }
   }
 }
+.images {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.images img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  object-fit: cover;
+}
 
 #pagination {
   position: absolute;
-  top: 12%;
+  top: 50%;
   transform: translateY(-50%);
   right: 30px;
   z-index: 6;
