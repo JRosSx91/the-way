@@ -1,12 +1,6 @@
 <template>
   <div class="content">
     <div id="slider">
-      <div class="images">
-        <img v-if="img1" :src="img1" />
-        <img v-if="img2" :src="img2" />
-        <img v-if="img3" :src="img3" />
-        <img v-if="img4" :src="img4" />
-      </div>
       <div class="slider-inner">
         <div id="slider-content">
           <div class="meta">Species</div>
@@ -23,7 +17,12 @@
           <span data-slide-status="3">Least Concern</span>
         </div>
       </div>
-
+      <div class="images">
+        <img :src="img1" />
+        <img :src="img2" />
+        <img :src="img3" />
+        <img :src="img4" />
+      </div>
       <div id="pagination">
         <button class="active" data-slide="0"></button>
         <button data-slide="1"></button>
@@ -84,9 +83,9 @@ void main() {
 
 `;
 
-        let images = opts.images,
-          image,
-          sliderImages: any[] = [];
+        let images: HTMLImageElement[] = opts.images,
+          image: THREE.Texture,
+          sliderImages: THREE.Texture[] = [];
         let canvasWidth = images[0].clientWidth;
         let canvasHeight = images[0].clientHeight;
         let parent = opts.parent;
@@ -144,9 +143,11 @@ void main() {
 
         let mat = new THREE.ShaderMaterial({
           uniforms: {
-            dispFactor: { value: 0.0 },
-            currentImage: { value: sliderImages[0] },
-            nextImage: { value: sliderImages[1] },
+            dispFactor: {
+              value: 0.0,
+            },
+            currentImage: { value: new THREE.Uniform(sliderImages[0]) },
+            nextImage: { value: new THREE.Uniform(sliderImages[1]) },
           },
           vertexShader: vertex,
           fragmentShader: fragment,
@@ -279,6 +280,16 @@ void main() {
           }
         };
         addEvents();
+        window.addEventListener("resize", function (e) {
+          renderer.setSize(renderW, renderH);
+        });
+
+        let animate = function () {
+          requestAnimationFrame(animate);
+
+          renderer.render(scene, camera);
+        };
+        animate();
       };
       imagesLoaded(document.querySelectorAll("img"), () => {
         console.log("Todas las imágenes cargadas");
@@ -354,7 +365,7 @@ canvas {
 #slider-content {
   padding: 0 10px;
   position: absolute;
-  top: 8%;
+  top: 40vh;
 
   h2 {
     font-family: "acta-display", serif;
