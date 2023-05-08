@@ -2,18 +2,10 @@
   <div class="content">
     <div id="slider">
       <div class="images">
-        <img
-          src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123024/leopard2.jpg"
-        />
-        <img
-          src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123024/lion2.jpg"
-        />
-        <img
-          src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123024/tiger2.jpg"
-        />
-        <img
-          src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/123024/bear2.jpg"
-        />
+        <img v-if="img1" :src="img1" />
+        <img v-if="img2" :src="img2" />
+        <img v-if="img3" :src="img3" />
+        <img v-if="img4" :src="img4" />
       </div>
       <div class="slider-inner">
         <div id="slider-content">
@@ -52,6 +44,8 @@ export default defineComponent({
     let activeSlideId = 0;
     onMounted(() => {
       const displacementSlider = function (opts: any) {
+        console.log("displacementSlider ejecutado");
+        let isAnimating = false;
         let vertex = `
     varying vec2 vUv;
     void main() {
@@ -79,9 +73,9 @@ export default defineComponent({
         vec4 orig1 = texture2D(currentImage, uv);
         vec4 orig2 = texture2D(nextImage, uv);
         
-        _currentImage = texture2D(currentImage, vec2(uv.x, uv.y + dispFactor * (orig2 * intensity)));
+        _currentImage = texture2D(currentImage, vec2(uv.x, uv.y + dispFactor * (orig2.r * intensity)));
+        _nextImage = texture2D(nextImage, vec2(uv.x, uv.y + (1.0 - dispFactor) * (orig1.g * intensity)));
 
-        _nextImage = texture2D(nextImage, vec2(uv.x, uv.y + (1.0 - dispFactor) * (orig1 * intensity)));
 
         vec4 finalTexture = mix(_currentImage, _nextImage, dispFactor);
 
@@ -118,7 +112,7 @@ export default defineComponent({
         let renderer = new THREE.WebGLRenderer({
           antialias: false,
         });
-
+        console.log("Renderer creado:", renderer);
         renderer.setPixelRatio(window.devicePixelRatio);
         renderer.setClearColor(0x23272a, 1.0);
         renderer.setSize(renderW, renderH);
@@ -133,7 +127,7 @@ export default defineComponent({
           image.anisotropy = renderer.capabilities.getMaxAnisotropy();
           sliderImages.push(image);
         });
-
+        console.log("sliderImages:", sliderImages);
         let scene = new THREE.Scene();
         scene.background = new THREE.Color(0x23272a);
         let camera = new THREE.OrthographicCamera(
@@ -144,6 +138,7 @@ export default defineComponent({
           1,
           1000
         );
+        console.log("Camera:", camera);
 
         camera.position.z = 1;
 
@@ -159,6 +154,85 @@ export default defineComponent({
           opacity: 1.0,
         });
 
+        const handleButtonClick = (slideId: number) => {
+          console.log("handleButtonClick ejecutado:", slideId);
+          if (mat && mat.uniforms) {
+            mat.uniforms.nextImage.value = sliderImages[slideId];
+
+            gsap.to(mat.uniforms.dispFactor, {
+              duration: 1,
+              value: 1,
+              ease: "Expo.easeInOut",
+              onComplete: function () {
+                mat.uniforms.currentImage.value = sliderImages[slideId];
+                mat.uniforms.dispFactor.value = 0.0;
+
+                isAnimating = false;
+              },
+            });
+
+            const slideTitleEl = document.getElementById("slide-title");
+            const slideStatusEl = document.getElementById("slide-status");
+            const nextSlideTitle = document.querySelectorAll(
+              `[data-slide-title="${slideId}"]`
+            )[0].innerHTML;
+            const nextSlideStatus = document.querySelectorAll(
+              `[data-slide-status="${slideId}"]`
+            )[0].innerHTML;
+
+            gsap.fromTo(
+              slideTitleEl,
+              {
+                duration: 0.5,
+                autoAlpha: 1,
+                y: 0,
+              },
+              {
+                autoAlpha: 0,
+                y: 20,
+                ease: "Expo.easeIn",
+                onComplete: function () {
+                  if (slideTitleEl) {
+                    slideTitleEl.innerHTML = nextSlideTitle;
+
+                    gsap.to(slideTitleEl, {
+                      duration: 0.5,
+                      autoAlpha: 1,
+                      y: 0,
+                    });
+                  }
+                },
+              }
+            );
+
+            gsap.fromTo(
+              slideStatusEl,
+              {
+                duration: 0.5,
+                autoAlpha: 1,
+                y: 0,
+              },
+              {
+                autoAlpha: 0,
+                y: 20,
+                ease: "Expo.easeIn",
+                onComplete: function () {
+                  if (slideStatusEl) {
+                    slideStatusEl.innerHTML = nextSlideStatus;
+
+                    gsap.to(slideStatusEl, {
+                      duration: 0.5,
+                      autoAlpha: 1,
+                      y: 0,
+                      delay: 0.1,
+                    });
+                  }
+                },
+              }
+            );
+          }
+        };
+
         let geometry = new THREE.PlaneGeometry(
           parent.offsetWidth,
           parent.offsetHeight,
@@ -167,7 +241,7 @@ export default defineComponent({
         let object = new THREE.Mesh(geometry, mat);
         object.position.set(0, 0, 0);
         scene.add(object);
-
+        console.log("Scene:", scene);
         const addEvents = function () {
           const paginationElement = document.getElementById("pagination");
 
@@ -175,10 +249,10 @@ export default defineComponent({
             const pagButtons = Array.from(
               paginationElement.querySelectorAll("button")
             );
-            let isAnimating = false;
+            for (let i = 0; i < pagButtons.length; i++) {
+              pagButtons[i].addEventListener("click", function () {
+                console.log("Botón de paginación presionado");
 
-            pagButtons.forEach((el) => {
-              el.addEventListener("click", function () {
                 if (!isAnimating) {
                   isAnimating = true;
 
@@ -191,99 +265,39 @@ export default defineComponent({
                   if (slideIdString !== undefined) {
                     const slideId = parseInt(slideIdString, 10);
 
-                    activeSlideId = slideId; // <-- Actualizar el índice de la imagen activa
+                    activeSlideId = slideId;
 
-                    mat.uniforms.nextImage.value = sliderImages[slideId];
-
-                    gsap.to(mat.uniforms.dispFactor, {
-                      duration: 1,
-                      value: 1,
-                      ease: "Expo.easeInOut",
-                      onComplete: function () {
-                        mat.uniforms.currentImage.value = sliderImages[slideId];
-                        mat.uniforms.dispFactor.value = 0.0;
-                        isAnimating = false;
-                      },
-                    });
-                    const slideTitleEl = document.getElementById("slide-title");
-                    const slideStatusEl =
-                      document.getElementById("slide-status");
-                    const nextSlideTitle = document.querySelectorAll(
-                      `[data-slide-title="${slideId}"]`
-                    )[0].innerHTML;
-                    const nextSlideStatus = document.querySelectorAll(
-                      `[data-slide-status="${slideId}"]`
-                    )[0].innerHTML;
-
-                    gsap.fromTo(
-                      slideTitleEl,
-                      {
-                        duration: 0.5,
-                        autoAlpha: 1,
-                        y: 0,
-                      },
-                      {
-                        autoAlpha: 0,
-                        y: 20,
-                        ease: "Expo.easeIn",
-                        onComplete: function () {
-                          if (slideTitleEl) {
-                            slideTitleEl.innerHTML = nextSlideTitle;
-
-                            gsap.to(slideTitleEl, {
-                              duration: 0.5,
-                              autoAlpha: 1,
-                              y: 0,
-                            });
-                          }
-                        },
-                      }
+                    console.log(
+                      "Ejecutando handleButtonClick para slideId:",
+                      slideId
                     );
-
-                    gsap.fromTo(
-                      slideStatusEl,
-                      {
-                        duration: 0.5,
-                        autoAlpha: 1,
-                        y: 0,
-                      },
-                      {
-                        autoAlpha: 0,
-                        y: 20,
-                        ease: "Expo.easeIn",
-                        onComplete: function () {
-                          if (slideStatusEl) {
-                            slideStatusEl.innerHTML = nextSlideStatus;
-
-                            gsap.to(slideStatusEl, {
-                              duration: 0.5,
-                              autoAlpha: 1,
-                              y: 0,
-                              delay: 0.1,
-                            });
-                          }
-                        },
-                      }
-                    );
+                    handleButtonClick(slideId);
                   }
                 }
               });
-            });
+            }
           }
-
-          window.addEventListener("resize", function (e) {
-            renderer.setSize(renderW, renderH);
-          });
-
-          let animate = function () {
-            requestAnimationFrame(animate);
-
-            renderer.render(scene, camera);
-          };
-          animate();
         };
+        addEvents();
       };
+      imagesLoaded(document.querySelectorAll("img"), () => {
+        console.log("Todas las imágenes cargadas");
+        const el = document.getElementById("slider");
+        if (el) {
+          const imgs = Array.from(el.querySelectorAll("img"));
+          displacementSlider({
+            parent: el,
+            images: imgs,
+          });
+        }
+      });
     });
+    return {
+      img1: require("@/assets/img/leopard2.jpg"),
+      img2: require("@/assets/img/lion2.jpg"),
+      img3: require("@/assets/img/tiger2.jpg"),
+      img4: require("@/assets/img/bear2.jpg"),
+    };
   },
 });
 </script>
@@ -308,22 +322,22 @@ body {
   margin: 0 auto;
   position: relative;
 
-  canvas {
-    width: 150%;
-    height: 150%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 2;
-  }
-
   img {
     width: 100%;
-    min-width: 1120px;
+    max-width: 100%;
     position: relative;
     z-index: 0;
   }
+}
+
+canvas {
+  width: 150%;
+  height: 150%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
 }
 
 .slider-inner {
