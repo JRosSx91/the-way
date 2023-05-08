@@ -194,7 +194,6 @@ export default defineComponent({
                     activeSlideId = slideId; // <-- Actualizar el índice de la imagen activa
 
                     mat.uniforms.nextImage.value = sliderImages[slideId];
-                    mat.uniforms.nextImage.needsUpdate = true;
 
                     gsap.to(mat.uniforms.dispFactor, {
                       duration: 1,
@@ -202,7 +201,6 @@ export default defineComponent({
                       ease: "Expo.easeInOut",
                       onComplete: function () {
                         mat.uniforms.currentImage.value = sliderImages[slideId];
-                        mat.uniforms.currentImage.needsUpdate = true;
                         mat.uniforms.dispFactor.value = 0.0;
                         isAnimating = false;
                       },
@@ -272,8 +270,6 @@ export default defineComponent({
               });
             });
           }
-
-          addEvents();
 
           window.addEventListener("resize", function (e) {
             renderer.setSize(renderW, renderH);
