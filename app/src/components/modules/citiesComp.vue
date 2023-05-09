@@ -42,6 +42,7 @@ import { DisplacementSliderOptions } from "@/interfaces";
 export default defineComponent({
   setup() {
     onMounted(() => {
+      let activeSlideId = 0;
       const displacementSlider = function (opts: DisplacementSliderOptions) {
         let isAnimating = false;
         let vertex = `
@@ -258,6 +259,7 @@ void main() {
 
                   if (slideIdString !== undefined) {
                     const slideId = parseInt(slideIdString, 10);
+                    activeSlideId = slideId;
                     handleButtonClick(slideId);
                   }
                 }
@@ -290,6 +292,11 @@ void main() {
       });
     });
     return {
+      slides: [
+        {
+          
+        }
+      ]
       img1: require("@/assets/img/burgos.jpg"),
       img2: require("@/assets/img/leon2.jpg"),
       img3: require("@/assets/img/tiger2.jpg"),
