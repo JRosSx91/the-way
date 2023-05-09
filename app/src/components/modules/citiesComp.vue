@@ -329,12 +329,6 @@ void main() {
 </script>
 
 <style lang="scss" scoped>
-* {
-  background-color: #23272a;
-  overflow: hidden;
-  box-sizing: content-box;
-}
-
 .content {
   background-color: #23272a;
   position: relative;
@@ -371,7 +365,8 @@ canvas {
 }
 
 .slider-inner {
-  position: relative;
+  position: absolute;
+  background-color: transparent;
   display: flex;
   align-items: center;
   width: 100%;
@@ -382,9 +377,13 @@ canvas {
 }
 
 #slider-content {
-  padding: 0 10px;
+  padding: 10px 20px;
+  margin: 3px;
   position: absolute;
   top: 40vh;
+  left: 10%;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 5%;
 
   h2 {
     font-family: "acta-display", serif;
