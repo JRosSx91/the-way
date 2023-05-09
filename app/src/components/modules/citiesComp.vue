@@ -37,12 +37,13 @@ import { defineComponent, onMounted } from "vue";
 import * as THREE from "three";
 import gsap from "gsap";
 import imagesLoaded from "imagesloaded";
+import { DisplacementSliderOptions } from "@/interfaces";
 
 export default defineComponent({
   setup() {
     let activeSlideId = 0;
     onMounted(() => {
-      const displacementSlider = function (opts: any) {
+      const displacementSlider = function (opts: DisplacementSliderOptions) {
         let isAnimating = false;
         let vertex = `
     varying vec2 vUv;
