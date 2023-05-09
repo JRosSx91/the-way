@@ -119,7 +119,7 @@ void main() {
         let loader = new THREE.TextureLoader();
         loader.crossOrigin = "anonymous";
 
-        images.forEach((img: any) => {
+        images.forEach((img: HTMLImageElement) => {
           image = loader.load(img.getAttribute("src") + "?v=" + Date.now());
           image.magFilter = image.minFilter = THREE.LinearFilter;
           image.anisotropy = renderer.capabilities.getMaxAnisotropy();

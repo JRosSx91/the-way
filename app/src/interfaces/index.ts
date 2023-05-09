@@ -3,3 +3,7 @@ export interface State {
   dark: boolean;
   phone: boolean;
 }
+export interface DisplacementSliderOptions {
+  images: HTMLImageElement[];
+  parent: HTMLElement;
+}
