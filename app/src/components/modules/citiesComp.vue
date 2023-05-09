@@ -41,7 +41,6 @@ import { DisplacementSliderOptions } from "@/interfaces";
 
 export default defineComponent({
   setup() {
-    let activeSlideId = 0;
     onMounted(() => {
       const displacementSlider = function (opts: DisplacementSliderOptions) {
         let isAnimating = false;
@@ -151,11 +150,7 @@ void main() {
           transparent: true,
           opacity: 1.0,
         });
-        console.log("mat: ", mat);
         const handleButtonClick = (slideId: number) => {
-          console.log("handleButtonClick ejecutado:", slideId);
-          console.log("Slide ID:", slideId);
-
           if (mat && mat.uniforms) {
             mat.uniforms.nextImage.value = sliderImages[slideId];
 
@@ -243,7 +238,6 @@ void main() {
         let object = new THREE.Mesh(geometry, mat);
         object.position.set(0, 0, 0);
         scene.add(object);
-        console.log("Scene:", scene);
         const addEvents = function () {
           const paginationElement = document.getElementById("pagination");
 
@@ -264,9 +258,6 @@ void main() {
 
                   if (slideIdString !== undefined) {
                     const slideId = parseInt(slideIdString, 10);
-
-                    activeSlideId = slideId;
-
                     handleButtonClick(slideId);
                   }
                 }
