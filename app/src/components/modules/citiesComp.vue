@@ -1,6 +1,6 @@
 <template>
   <div class="content">
-    <div id="slider">
+    <div id="slider" class="w-[100%] h-[100vh]">
       <div class="slider-inner">
         <div id="slider-content">
           <div class="meta">Species</div>
@@ -16,12 +16,12 @@
           <span data-slide-status="2">Endangered</span>
           <span data-slide-status="3">Least Concern</span>
         </div>
-        <div class="images">
-          <img :src="img1" />
-          <img :src="img2" />
-          <img :src="img3" />
-          <img :src="img4" />
-        </div>
+      </div>
+      <div class="images">
+        <img :src="img1" />
+        <img :src="img2" />
+        <img :src="img3" />
+        <img :src="img4" />
       </div>
       <div id="pagination">
         <button class="active" data-slide="0"></button>
@@ -256,7 +256,6 @@ void main() {
             );
             for (let i = 0; i < pagButtons.length; i++) {
               pagButtons[i].addEventListener("click", function () {
-
                 if (!isAnimating) {
                   isAnimating = true;
 
@@ -330,7 +329,8 @@ void main() {
 
 #slider {
   width: 100%;
-  max-width: 1200px;
+  padding: 0;
+  max-width: 100%;
   height: 100%;
   margin: 0 auto;
   position: relative;
@@ -344,7 +344,7 @@ void main() {
 }
 
 canvas {
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   position: absolute;
   top: 0;
