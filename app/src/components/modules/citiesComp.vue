@@ -43,7 +43,6 @@ export default defineComponent({
     let activeSlideId = 0;
     onMounted(() => {
       const displacementSlider = function (opts: any) {
-        console.log("displacementSlider ejecutado");
         let isAnimating = false;
         let vertex = `
     varying vec2 vUv;
@@ -257,7 +256,6 @@ void main() {
             );
             for (let i = 0; i < pagButtons.length; i++) {
               pagButtons[i].addEventListener("click", function () {
-                console.log("Botón de paginación presionado");
 
                 if (!isAnimating) {
                   isAnimating = true;
@@ -273,10 +271,6 @@ void main() {
 
                     activeSlideId = slideId;
 
-                    console.log(
-                      "Ejecutando handleButtonClick para slideId:",
-                      slideId
-                    );
                     handleButtonClick(slideId);
                   }
                 }
@@ -285,7 +279,7 @@ void main() {
           }
         };
         addEvents();
-        window.addEventListener("resize", function (e) {
+        window.addEventListener("resize", function () {
           renderer.setSize(renderW, renderH);
         });
 
