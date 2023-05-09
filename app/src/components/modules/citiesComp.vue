@@ -3,18 +3,22 @@
     <div id="slider" class="w-[100%] h-[100vh]">
       <div class="slider-inner">
         <div id="slider-content">
-          <div class="meta">Species</div>
-          <h2 id="slide-title">Amur <br />Leopard</h2>
-          <span data-slide-title="0">Amur <br />Leopard</span>
-          <span data-slide-title="1">Asiatic <br />Lion</span>
-          <span data-slide-title="2">Siberian <br />Tiger</span>
-          <span data-slide-title="3">Brown <br />Bear</span>
-          <div class="meta">Status</div>
-          <div id="slide-status">Critically Endangered</div>
-          <span data-slide-status="0">Critically Endangered</span>
-          <span data-slide-status="1">Endangered</span>
-          <span data-slide-status="2">Endangered</span>
-          <span data-slide-status="3">Least Concern</span>
+          <div class="meta">Ciudades</div>
+          <h2 id="slide-title">Burgos</h2>
+          <span data-slide-title="0">Burgos</span>
+          <span data-slide-title="1">León</span>
+          <span data-slide-title="2">Astorga</span>
+          <span data-slide-title="3">Santiago <br />de Compostela</span>
+          <div class="meta">Título</div>
+          <div id="slide-status">Antigua capital de Castilla</div>
+          <span data-slide-status="0">Antigua capital de Castilla</span>
+          <span data-slide-status="1"
+            >El asentamiento definitivo de la Legio VII Gemina</span
+          >
+          <span data-slide-status="2">El campamento de la Legio X Gemina</span>
+          <span data-slide-status="3"
+            >Uno de los núcleos de peregrinación del cristianismo</span
+          >
         </div>
       </div>
       <div class="images">
@@ -33,16 +37,38 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, onMounted } from "vue";
+import { defineComponent, onMounted, ref } from "vue";
 import * as THREE from "three";
 import gsap from "gsap";
 import imagesLoaded from "imagesloaded";
-import { DisplacementSliderOptions } from "@/interfaces";
+import { DisplacementSliderOptions, Slide } from "@/interfaces";
 
 export default defineComponent({
   setup() {
+    let activeSlideId = 0;
+    const slides = ref<Slide[]>([
+      {
+        title: "Burgos",
+        status: "Antigua capital de Castilla",
+        img: require("@/assets/img/burgos.jpg"),
+      },
+      {
+        title: "Leon",
+        status: "El asentamiento definitivo de la Legio VII Gemina",
+        img: require("@/assets/img/leon.jpg"),
+      },
+      {
+        title: "Astorga",
+        status: "El campamento de la Legio X Gemina",
+        img: require("@/assets/img/astorga.jpg"),
+      },
+      {
+        title: "Santiago",
+        status: "Uno de los núcleos de peregrinación del cristianismo",
+        img: require("@/assets/img/santiago.webp"),
+      },
+    ]);
     onMounted(() => {
-      let activeSlideId = 0;
       const displacementSlider = function (opts: DisplacementSliderOptions) {
         let isAnimating = false;
         let vertex = `
@@ -292,15 +318,11 @@ void main() {
       });
     });
     return {
-      slides: [
-        {
-          
-        }
-      ]
+      slides,
       img1: require("@/assets/img/burgos.jpg"),
-      img2: require("@/assets/img/leon2.jpg"),
-      img3: require("@/assets/img/tiger2.jpg"),
-      img4: require("@/assets/img/bear2.jpg"),
+      img2: require("@/assets/img/leon.jpg"),
+      img3: require("@/assets/img/astorga.jpg"),
+      img4: require("@/assets/img/santiago.webp"),
     };
   },
 });
