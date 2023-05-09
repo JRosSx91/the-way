@@ -98,7 +98,7 @@ void main() {
           window.innerHeight || 0
         );
 
-        let renderW: any, renderH: any;
+        let renderW: number, renderH: number;
 
         if (renderWidth > canvasWidth) {
           renderW = renderWidth;
@@ -111,7 +111,6 @@ void main() {
         let renderer = new THREE.WebGLRenderer({
           antialias: false,
         });
-        console.log("Renderer creado:", renderer);
         renderer.setPixelRatio(window.devicePixelRatio);
         renderer.setClearColor(0x23272a, 1.0);
         renderer.setSize(renderW, renderH);
@@ -126,9 +125,7 @@ void main() {
           image.anisotropy = renderer.capabilities.getMaxAnisotropy();
           sliderImages.push(image);
         });
-        console.log("sliderImages:", sliderImages);
         let scene = new THREE.Scene();
-        console.log("Hay escena", scene);
         scene.background = new THREE.Color(0x23272a);
         let camera = new THREE.OrthographicCamera(
           renderWidth / -2,
@@ -138,7 +135,6 @@ void main() {
           1,
           1000
         );
-        console.log("Camera:", camera);
 
         camera.position.z = 1;
 
