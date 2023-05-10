@@ -14,6 +14,12 @@ const useStore = defineStore("store", {
     switchDark(): void {
       this.dark = !this.dark;
     },
+    setPrimaryColor(color: string): void {
+      this.primaryColor = color;
+    },
+    setSecondaryColor(color: string): void {
+      this.secondaryColor = color;
+    },
   },
 });
 
