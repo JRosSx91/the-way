@@ -40,7 +40,7 @@ nav {
     }
   }
 
-  @media screen and (min-width: 800px) {
+  @media screen and (min-width: 900px) {
     display: block;
   }
 }

@@ -27,7 +27,7 @@ export default defineComponent({
   width: 72px;
   text-align: center;
   position: absolute;
-  right: 10px;
+  right: 25px;
   top: 27px;
   font-family: "Arial", sans-serif;
   font-size: 12px;

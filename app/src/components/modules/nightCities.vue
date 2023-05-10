@@ -46,6 +46,7 @@ import useStore from "@/store";
 export default defineComponent({
   setup() {
     const store = useStore();
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     let activeSlideId = 0;
     const slides = ref<Slide[]>([
       {
@@ -477,7 +478,7 @@ canvas {
 
 #pagination {
   position: absolute;
-  top: 40vh;
+  top: 50vh;
   transform: translateY(-50%);
   right: 30px;
   z-index: 6;

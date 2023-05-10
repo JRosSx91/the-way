@@ -4,7 +4,7 @@
       class="inner flex justify-between"
       :class="store.dark ? 'bg-zinc-900/50' : 'bg-zinc-100/50'"
     >
-      <lightButton />
+      <lightButton class="ml-5" />
       <navMenu />
       <donateComp />
     </div>
