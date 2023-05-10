@@ -16,7 +16,6 @@
                 store.primaryColor.replace('black', 'white')
               )
             : '',
-          store.reAvatar(),
         ]
       "
       :class="
