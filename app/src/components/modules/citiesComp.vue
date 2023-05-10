@@ -5,10 +5,12 @@
         <div id="slider-content">
           <div class="meta">Ciudades</div>
           <h2 id="slide-title">Burgos</h2>
-          <span data-slide-title="0">Burgos</span>
-          <span data-slide-title="1">León</span>
-          <span data-slide-title="2">Astorga</span>
-          <span data-slide-title="3">Santiago <br />de Compostela</span>
+          <span
+            v-for="(x, index) in slides"
+            :key="index"
+            :data-slide-title="index"
+            >{{ x.title }}</span
+          >
           <div class="meta">Título</div>
           <div id="slide-status">Antigua capital de Castilla</div>
           <span
@@ -23,10 +25,12 @@
         <img v-for="(x, index) in slides" :key="index" :src="x.img" />
       </div>
       <div id="pagination">
-        <button class="active" data-slide="0"></button>
-        <button data-slide="1"></button>
-        <button data-slide="2"></button>
-        <button data-slide="3"></button>
+        <button
+          v-for="(x, index) in slides"
+          :key="index"
+          :data-slide="index"
+          :class="{ active: index === 0 }"
+        ></button>
       </div>
     </div>
   </div>
