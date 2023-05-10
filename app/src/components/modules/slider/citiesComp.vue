@@ -34,7 +34,7 @@
           v-for="(x, index) in slides"
           :key="index"
           :data-slide="index"
-          :class="{ active: index === 0 }"
+          :class="{ active: index === activeSlideId }"
         ></button>
       </div>
     </div>
@@ -52,8 +52,7 @@ import { slidesData } from "./slidesData";
 export default defineComponent({
   setup() {
     const store = useStore();
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    let activeSlideId = 0;
+    let activeSlideId = ref(0);
     const slides = ref<Slide[]>(slidesData);
     const displacementSlider = function (opts: DisplacementSliderOptions) {
       let isAnimating = false;
@@ -270,7 +269,7 @@ void main() {
 
                 if (slideIdString !== undefined) {
                   const slideId = parseInt(slideIdString, 10);
-                  activeSlideId = slideId;
+                  activeSlideId.value = slideId;
                   handleButtonClick(slideId);
                 }
               }
@@ -304,6 +303,7 @@ void main() {
     return {
       slides,
       store,
+      activeSlideId,
     };
   },
 });
