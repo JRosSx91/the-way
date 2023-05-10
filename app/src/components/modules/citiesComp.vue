@@ -22,10 +22,7 @@
         </div>
       </div>
       <div class="images">
-        <img :src="img1" />
-        <img :src="img2" />
-        <img :src="img3" />
-        <img :src="img4" />
+        <img v-for="(x, index) in slides" :key="index" :src="x.img" />
       </div>
       <div id="pagination">
         <button class="active" data-slide="0"></button>
