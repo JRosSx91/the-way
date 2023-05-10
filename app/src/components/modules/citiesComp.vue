@@ -368,19 +368,17 @@ void main() {
     width: 100%;
     max-width: 100%;
     position: relative;
-    z-index: -500;
+    z-index: 0;
   }
-}
-
-canvas {
-  width: 100%;
-  height: 100vh;
-  object-fit: cover;
-  position: absolute;
-  top: 0;
-  left: 0;
-  transform: translate(-50%, -50%);
-  z-index: 100;
+  canvas {
+    width: 150% !important;
+    height: 150% !important;
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    z-index: 100;
+  }
 }
 
 .slider-inner {
