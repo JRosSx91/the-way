@@ -36,7 +36,7 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, watch, ref } from "vue";
+import { defineComponent, ref } from "vue";
 import * as THREE from "three";
 import gsap from "gsap";
 import imagesLoaded from "imagesloaded";
@@ -50,43 +50,43 @@ export default defineComponent({
     const slides = ref<Slide[]>([
       {
         title: "Pamplona",
-        status: "Antigua capital de Castilla",
+        status: "Lorem Ipsum",
         img: require("@/assets/img/pamplona-dia.jpg"),
-        imgNight: require("@/assets/img/pamplona-noche.jpeg"),
+        imgNight: require("@/assets/img/pamplona-noche.jpg"),
       },
       {
         title: "Logroño",
-        status: "Antigua capital de Castilla",
+        status: "Lorem Ipsum",
         img: require("@/assets/img/logroño-dia.jpg"),
         imgNight: require("@/assets/img/logroño-noche.jpg"),
       },
       {
         title: "Burgos",
-        status: "Antigua capital de Castilla",
+        status: "Lorem Ipsum",
         img: require("@/assets/img/burgos-dia.jpg"),
         imgNight: require("@/assets/img/burgos-noche.webp"),
       },
       {
         title: "Leon",
-        status: "El asentamiento definitivo de la Legio VII Gemina",
+        status: "Lorem Ipsum",
         img: require("@/assets/img/leon-dia.jpg"),
         imgNight: require("@/assets/img/leon-noche.jpg"),
       },
       {
         title: "Astorga",
-        status: "El campamento de la Legio X Gemina",
+        status: "Lorem Ipsum",
         img: require("@/assets/img/astorga-dia.jpg"),
         imgNight: require("@/assets/img/astorga-noche.jpg"),
       },
       {
         title: "Ponferrada",
-        status: "Antigua capital de Castilla",
+        status: "Lorem Ipsum",
         img: require("@/assets/img/ponferrada-dia.webp"),
         imgNight: require("@/assets/img/ponferrada-noche.jpg"),
       },
       {
         title: "Santiago de Compostela",
-        status: "Uno de los núcleos de peregrinación del cristianismo",
+        status: "Lorem Ipsum",
         img: require("@/assets/img/santiago.webp"),
         imgNight: require("@/assets/img/santiago-noche.jpg"),
       },

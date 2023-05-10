@@ -1,7 +1,7 @@
 <template>
   <header>
     <div
-      class="inner"
+      class="inner flex justify-between"
       :class="store.dark ? 'bg-zinc-900/50' : 'bg-zinc-100/50'"
     >
       <lightButton />
@@ -51,7 +51,6 @@ header {
     display: flex;
     height: 70px;
     align-items: center;
-    justify-content: space-evenly;
     position: relative;
   }
 }

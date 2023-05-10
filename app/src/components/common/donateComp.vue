@@ -1,10 +1,12 @@
 <template>
-  <a
-    :class="store.dark ? 'text-white' : 'text-black'"
-    href="#"
-    class="donate-link"
-    >Donate</a
-  >
+  <div>
+    <a
+      :class="store.dark ? 'text-white' : 'text-black'"
+      href="#"
+      class="donate-link"
+      >Donate</a
+    >
+  </div>
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";

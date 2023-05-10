@@ -13,7 +13,7 @@ export default defineComponent({
 
 <style lang="scss">
 html {
-  overflow-x: hidden; 
+  overflow-x: hidden;
 }
 ::-webkit-scrollbar {
   width: 3px;
@@ -43,7 +43,6 @@ html {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   margin: 0 auto;
   padding: 0;
 }
