@@ -11,13 +11,11 @@
           <span data-slide-title="3">Santiago <br />de Compostela</span>
           <div class="meta">Título</div>
           <div id="slide-status">Antigua capital de Castilla</div>
-          <span data-slide-status="0">Antigua capital de Castilla</span>
-          <span data-slide-status="1"
-            >El asentamiento definitivo de la Legio VII Gemina</span
-          >
-          <span data-slide-status="2">El campamento de la Legio X Gemina</span>
-          <span data-slide-status="3"
-            >Uno de los núcleos de peregrinación del cristianismo</span
+          <span
+            v-for="(x, index) in slides"
+            :key="index"
+            :data-slide-status="index"
+            >{{ x.status }}</span
           >
         </div>
       </div>
@@ -316,10 +314,6 @@ void main() {
     });
     return {
       slides,
-      img1: require("@/assets/img/burgos-dia.jpg"),
-      img2: require("@/assets/img/leon-dia.jpg"),
-      img3: require("@/assets/img/astorga-dia.jpg"),
-      img4: require("@/assets/img/santiago.webp"),
     };
   },
 });
