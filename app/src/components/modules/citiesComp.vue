@@ -4,7 +4,7 @@
       <div class="slider-inner">
         <div id="slider-content">
           <div class="meta">Ciudades</div>
-          <h2 id="slide-title">Burgos</h2>
+          <h2 id="slide-title">Pamplona</h2>
           <span
             v-for="(x, index) in slides"
             :key="index"
@@ -47,6 +47,16 @@ export default defineComponent({
     let activeSlideId = 0;
     const slides = ref<Slide[]>([
       {
+        title: "Pamplona",
+        status: "Antigua capital de Castilla",
+        img: require("@/assets/img/pamplona-dia.jpg"),
+      },
+      {
+        title: "Logroño",
+        status: "Antigua capital de Castilla",
+        img: require("@/assets/img/logroño-dia.jpg"),
+      },
+      {
         title: "Burgos",
         status: "Antigua capital de Castilla",
         img: require("@/assets/img/burgos-dia.jpg"),
@@ -60,6 +70,11 @@ export default defineComponent({
         title: "Astorga",
         status: "El campamento de la Legio X Gemina",
         img: require("@/assets/img/astorga-dia.jpg"),
+      },
+      {
+        title: "Ponferrada",
+        status: "Antigua capital de Castilla",
+        img: require("@/assets/img/ponferrada-dia.webp"),
       },
       {
         title: "Santiago",
