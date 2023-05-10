@@ -19,9 +19,9 @@
         ]
       "
       :class="
-        store.dark
-          ? 'bg-white/10 shadow-gray-700 border-white/20 hover:bg-gray-600 text-white'
-          : 'bg-white hover:bg-gray-200 border-black/20 text-gray-600'
+        !store.dark
+          ? 'bg-gray-500 shadow-gray-700 border-white/20 hover:bg-gray-600 text-white'
+          : 'bg-white-600 hover:bg-gray-200 border-black/20 text-white hover:text-gray-600'
       "
     >
       <svg

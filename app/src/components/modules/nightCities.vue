@@ -12,7 +12,7 @@
             >{{ x.title }}</span
           >
           <div class="meta">Título</div>
-          <div id="slide-status">Antigua capital de Castilla</div>
+          <div id="slide-status">Lorem Ipsum</div>
           <span
             v-for="(x, index) in slides"
             :key="index"
