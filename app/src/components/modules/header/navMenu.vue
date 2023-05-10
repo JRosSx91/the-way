@@ -1,5 +1,5 @@
 <template>
-  <nav>
+  <nav :class="store.dark ? 'text-white' : 'text-black'">
     <a class="active" href="#">History</a>
     <a href="#">Legends</a>
     <a href="#">RRSS</a>
@@ -29,7 +29,6 @@ nav {
   a {
     font-family: "Arial", serif;
     font-size: 12px;
-    color: #8c8c8e;
     text-transform: uppercase;
     letter-spacing: 3px;
     text-decoration: none;
@@ -37,7 +36,7 @@ nav {
 
     &.active,
     &:hover {
-      color: white;
+      font-weight: bold;
     }
   }
 
