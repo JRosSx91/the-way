@@ -1,6 +1,6 @@
 <template>
   <header-layout />
-  <citiesComp :images="[img1, img2, img3, img4]" />
+  <citiesComp />
   <footer-layout />
 </template>
 <script lang="ts">
@@ -14,10 +14,6 @@ export default defineComponent({
   components: { HeaderLayout, FooterLayout, citiesComp },
   setup() {
     return {
-      img1: require("@/assets/img/leopard2.jpg"),
-      img2: require("@/assets/img/lion2.jpg"),
-      img3: require("@/assets/img/tiger2.jpg"),
-      img4: require("@/assets/img/bear2.jpg"),
       HeaderLayout,
       FooterLayout,
       citiesComp,

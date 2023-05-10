@@ -319,9 +319,9 @@ void main() {
     });
     return {
       slides,
-      img1: require("@/assets/img/burgos.jpg"),
-      img2: require("@/assets/img/leon.jpg"),
-      img3: require("@/assets/img/astorga.jpg"),
+      img1: require("@/assets/img/burgos-dia.jpg"),
+      img2: require("@/assets/img/leon-dia.jpg"),
+      img3: require("@/assets/img/astorga-dia.jpg"),
       img4: require("@/assets/img/santiago.webp"),
     };
   },
