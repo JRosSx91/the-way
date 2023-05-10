@@ -6,6 +6,8 @@ const useStore = defineStore("store", {
     return {
       dark: false,
       phone: false,
+      primaryColor: "purple-500",
+      secondaryColor: "yellow-500",
     };
   },
   actions: {
