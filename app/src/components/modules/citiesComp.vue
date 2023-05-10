@@ -50,17 +50,17 @@ export default defineComponent({
       {
         title: "Burgos",
         status: "Antigua capital de Castilla",
-        img: require("@/assets/img/burgos.jpg"),
+        img: require("@/assets/img/burgos-dia.jpg"),
       },
       {
         title: "Leon",
         status: "El asentamiento definitivo de la Legio VII Gemina",
-        img: require("@/assets/img/leon.jpg"),
+        img: require("@/assets/img/leon-dia.jpg"),
       },
       {
         title: "Astorga",
         status: "El campamento de la Legio X Gemina",
-        img: require("@/assets/img/astorga.jpg"),
+        img: require("@/assets/img/astorga-dia.jpg"),
       },
       {
         title: "Santiago",
