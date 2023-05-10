@@ -12,7 +12,7 @@
             >{{ x.title }}</span
           >
           <div class="meta">Título</div>
-          <div id="slide-status">Antigua capital de Castilla</div>
+          <div id="slide-status">Lorem Ipsum</div>
           <span
             v-for="(x, index) in slides"
             :key="index"
@@ -36,7 +36,7 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, watch, ref } from "vue";
+import { defineComponent, ref } from "vue";
 import * as THREE from "three";
 import gsap from "gsap";
 import imagesLoaded from "imagesloaded";
@@ -50,43 +50,43 @@ export default defineComponent({
     const slides = ref<Slide[]>([
       {
         title: "Pamplona",
-        status: "Antigua capital de Castilla",
+        status: "Lorem Ipsum",
         img: require("@/assets/img/pamplona-dia.jpg"),
         imgNight: require("@/assets/img/pamplona-noche.jpeg"),
       },
       {
         title: "Logroño",
-        status: "Antigua capital de Castilla",
+        status: "Lorem Ipsum",
         img: require("@/assets/img/logroño-dia.jpg"),
         imgNight: require("@/assets/img/logroño-noche.jpg"),
       },
       {
         title: "Burgos",
-        status: "Antigua capital de Castilla",
+        status: "Lorem Ipsum",
         img: require("@/assets/img/burgos-dia.jpg"),
         imgNight: require("@/assets/img/burgos-noche.webp"),
       },
       {
         title: "Leon",
-        status: "El asentamiento definitivo de la Legio VII Gemina",
+        status: "Lorem Ipsum",
         img: require("@/assets/img/leon-dia.jpg"),
         imgNight: require("@/assets/img/leon-noche.jpg"),
       },
       {
         title: "Astorga",
-        status: "El campamento de la Legio X Gemina",
+        status: "Lorem Ipsum",
         img: require("@/assets/img/astorga-dia.jpg"),
         imgNight: require("@/assets/img/astorga-noche.jpg"),
       },
       {
         title: "Ponferrada",
-        status: "Antigua capital de Castilla",
+        status: "Lorem Ipsum",
         img: require("@/assets/img/ponferrada-dia.webp"),
         imgNight: require("@/assets/img/ponferrada-noche.jpg"),
       },
       {
         title: "Santiago de Compostela",
-        status: "Uno de los núcleos de peregrinación del cristianismo",
+        status: "Lorem Ipsum",
         img: require("@/assets/img/santiago.webp"),
         imgNight: require("@/assets/img/santiago-noche.jpg"),
       },
@@ -374,6 +374,7 @@ void main() {
 canvas {
   width: 100%;
   height: 100vh;
+  object-fit: cover;
   position: absolute;
   top: 0;
   left: 0;
@@ -481,6 +482,8 @@ canvas {
   transform: translateY(-50%);
   right: 30px;
   z-index: 6;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 7px;
 
   button {
     display: block;
@@ -493,7 +496,7 @@ canvas {
     background-color: #ffffff;
     border-radius: 100%;
     padding: 0;
-    margin: 30px 0;
+    margin: 30px 3px;
     cursor: pointer;
     position: relative;
     opacity: 0.2;

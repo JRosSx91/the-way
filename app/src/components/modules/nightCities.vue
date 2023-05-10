@@ -52,7 +52,7 @@ export default defineComponent({
         title: "Pamplona",
         status: "Lorem Ipsum",
         img: require("@/assets/img/pamplona-dia.jpg"),
-        imgNight: require("@/assets/img/pamplona-noche.jpg"),
+        imgNight: require("@/assets/img/pamplona-noche.jpeg"),
       },
       {
         title: "Logroño",
@@ -481,6 +481,8 @@ canvas {
   transform: translateY(-50%);
   right: 30px;
   z-index: 6;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 7px;
 
   button {
     display: block;
@@ -493,7 +495,7 @@ canvas {
     background-color: #ffffff;
     border-radius: 100%;
     padding: 0;
-    margin: 30px 0;
+    margin: 30px 10px;
     cursor: pointer;
     position: relative;
     opacity: 0.2;
