@@ -2,6 +2,8 @@ export interface State {
   // page mode
   dark: boolean;
   phone: boolean;
+  primaryColor: string;
+  secondaryColor: string;
 }
 export interface DisplacementSliderOptions {
   images: HTMLImageElement[];
