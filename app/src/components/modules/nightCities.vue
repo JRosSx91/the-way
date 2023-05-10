@@ -22,7 +22,12 @@
         </div>
       </div>
       <div class="images">
-        <img v-for="(x, index) in slides" :key="index" :src="x.imgNight" />
+        <img
+          v-for="(x, index) in slides"
+          :key="index"
+          :src="x.imgNight"
+          :alt="x.title"
+        />
       </div>
       <div id="pagination">
         <button
@@ -68,7 +73,7 @@ export default defineComponent({
         imgNight: require("@/assets/img/burgos-noche.webp"),
       },
       {
-        title: "Leon",
+        title: "León",
         status: "Lorem Ipsum",
         img: require("@/assets/img/leon-dia.jpg"),
         imgNight: require("@/assets/img/leon-noche.jpg"),
