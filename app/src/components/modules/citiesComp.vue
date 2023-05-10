@@ -77,7 +77,7 @@ export default defineComponent({
         img: require("@/assets/img/ponferrada-dia.webp"),
       },
       {
-        title: "Santiago",
+        title: "Santiago de Compostela",
         status: "Uno de los núcleos de peregrinación del cristianismo",
         img: require("@/assets/img/santiago.webp"),
       },

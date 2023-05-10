@@ -8,6 +8,11 @@ const useStore = defineStore("store", {
       phone: false,
     };
   },
+  actions: {
+    switchDark(): void {
+      this.dark = !this.dark;
+    },
+  },
 });
 
 export default useStore;
