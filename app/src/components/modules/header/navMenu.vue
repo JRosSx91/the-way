@@ -1,23 +1,29 @@
 <template>
-  <nav :class="store.dark ? 'text-white' : 'text-black'">
-    <a class="active" href="#">History</a>
-    <a href="#">Legends</a>
-    <a href="#">RRSS</a>
-    <a href="#">Need help?</a>
-    <a href="#">AI Assistant (soon)</a>
-  </nav>
+  <div class="flex">
+    <nav class="flex" :class="store.dark ? 'text-white' : 'text-black'">
+      <a class="active" href="#">History</a>
+      <a href="#">Legends</a>
+    </nav>
+    <titleComp class="mx-5" />
+    <nav class="flex" :class="store.dark ? 'text-white' : 'text-black'">
+      <a href="#">Need help?</a>
+      <a href="#">AI Assistant (soon)</a>
+    </nav>
+  </div>
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
 import useStore from "@/store";
+import titleComp from "@/components/common/titleComp.vue";
 
 export default defineComponent({
   name: "nav-menu",
+  components: { titleComp },
   setup() {
     const store = useStore();
-
     return {
       store,
+      titleComp,
     };
   },
 });
