@@ -11,7 +11,10 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+html {
+  overflow-x: hidden; 
+}
 ::-webkit-scrollbar {
   width: 3px;
   height: 3px;
