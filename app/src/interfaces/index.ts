@@ -13,4 +13,5 @@ export interface Slide {
   title: string;
   status: string;
   img: string;
+  imgNight: string;
 }
