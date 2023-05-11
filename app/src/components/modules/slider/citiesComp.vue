@@ -17,6 +17,7 @@
             v-for="(x, index) in slides"
             :key="index"
             :data-slide-status="index"
+            ref="el => { if (el) slideTitleRefs[index] = el }"
             >{{ x.status }}</span
           >
         </div>
@@ -52,6 +53,9 @@ import { slidesData } from "./slidesData";
 export default defineComponent({
   setup() {
     const store = useStore();
+    const slideTitleRef = ref();
+    const slideStatusRef = ref();
+    const paginationRef = ref();
     let activeSlideId = ref(0);
     const slides = ref<Slide[]>(slidesData);
     const displacementSlider = function (opts: DisplacementSliderOptions) {
@@ -180,8 +184,8 @@ void main() {
             },
           });
 
-          const slideTitleEl = document.getElementById("slide-title");
-          const slideStatusEl = document.getElementById("slide-status");
+          const slideTitleEl = slideTitleRef.value;
+          const slideStatusEl = slideStatusRef.value;
           const nextSlideTitle = document.querySelectorAll(
             `[data-slide-title="${slideId}"]`
           )[0].innerHTML;
@@ -251,7 +255,7 @@ void main() {
       object.position.set(0, 0, 0);
       scene.add(object);
       const addEvents = function () {
-        const paginationElement = document.getElementById("pagination");
+        const paginationElement = paginationRef.value;
 
         if (paginationElement !== null) {
           const pagButtons: HTMLButtonElement[] = Array.from(
@@ -309,6 +313,9 @@ void main() {
       slides,
       store,
       activeSlideId,
+      slideTitleRef,
+      slideStatusRef,
+      paginationRef,
     };
   },
 });
