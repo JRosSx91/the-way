@@ -4,7 +4,7 @@
       <div class="slider-inner">
         <div id="slider-content">
           <div class="meta">Ciudades</div>
-          <h2 id="slide-title">Pamplona</h2>
+          <h2 id="slide-title" ref="slideTitleRef">Pamplona</h2>
           <span
             v-for="(x, index) in slides"
             :key="index"
@@ -12,7 +12,7 @@
             >{{ x.title }}</span
           >
           <div class="meta">Título</div>
-          <div id="slide-status">Lorem Ipsum</div>
+          <div id="slide-status" ref="slideStatusRef">Lorem Ipsum</div>
           <span
             v-for="(x, index) in slides"
             :key="index"
@@ -25,11 +25,11 @@
         <img
           v-for="(x, index) in slides"
           :key="index"
-          :src="x.img"
+          :src="store.dark ? x.imgNight : x.img"
           :alt="x.title"
         />
       </div>
-      <div id="pagination">
+      <div id="pagination" ref="paginationRef">
         <button
           v-for="(x, index) in slides"
           :key="index"
@@ -296,7 +296,6 @@ void main() {
       animate();
     };
     imagesLoaded(document.querySelectorAll("img"), () => {
-      console.log("Todas las imágenes cargadas");
       const el = document.getElementById("slider");
       if (el) {
         const imgs = Array.from(el.querySelectorAll("img"));
