@@ -34,13 +34,13 @@ export const slidesData: Slide[] = [
   {
     title: "Ponferrada",
     status: "Lorem Ipsum",
-    img: require("@/assets/img/ponferrada-dia.webp"),
+    img: require("@/assets/img/ponferrada-dia.jpg"),
     imgNight: require("@/assets/img/ponferrada-noche.jpg"),
   },
   {
     title: "Santiago de Compostela",
     status: "Lorem Ipsum",
-    img: require("@/assets/img/santiago.webp"),
+    img: require("@/assets/img/santiago.jpg"),
     imgNight: require("@/assets/img/santiago-noche.jpg"),
   },
 ];

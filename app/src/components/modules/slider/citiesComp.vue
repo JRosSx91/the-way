@@ -42,7 +42,7 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, Ref, onMounted } from "vue";
 import * as THREE from "three";
 import gsap from "gsap";
 import imagesLoaded from "imagesloaded";
@@ -57,9 +57,21 @@ export default defineComponent({
     const slideStatusRef = ref();
     const paginationRef = ref();
     const sliderRef = ref();
-    const imagesRef = ref();
+    const imagesRef = ref<Ref<HTMLImageElement | null>[]>([]);
     let activeSlideId = ref(0);
     const slides = ref<Slide[]>(slidesData);
+    onMounted(() => {
+      imagesLoaded(imagesRef.value, () => {
+        const el = document.getElementById("slider");
+        if (el) {
+          const imgs = Array.from(el.querySelectorAll("img"));
+          displacementSlider({
+            parent: el,
+            images: imgs,
+          });
+        }
+      });
+    });
     const displacementSlider = function (opts: DisplacementSliderOptions) {
       let isAnimating = false;
       let vertex = `
@@ -295,16 +307,6 @@ void main() {
       };
       animate();
     };
-    imagesLoaded(document.querySelectorAll("img"), () => {
-      const el = document.getElementById("slider");
-      if (el) {
-        const imgs = Array.from(el.querySelectorAll("img"));
-        displacementSlider({
-          parent: el,
-          images: imgs,
-        });
-      }
-    });
     return {
       slides,
       store,
@@ -343,10 +345,10 @@ void main() {
   }
   canvas {
     position: absolute !important;
+    width: 100%;
+    height: 100vh;
     transform: translate(-50%, -50%) !important;
     z-index: 100;
-    aspect-ratio: 16/9;
-    object-fit: contain;
   }
 }
 
@@ -441,7 +443,6 @@ void main() {
   left: 150%;
   width: 100%;
   height: 100vh;
-  object-fit: cover;
 }
 
 #pagination {
