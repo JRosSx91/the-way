@@ -280,7 +280,13 @@ void main() {
       addEvents();
       window.addEventListener("resize", function () {
         renderer.setSize(renderW, renderH);
+        onWindowResize();
       });
+
+      function onWindowResize() {
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      }
 
       let animate = function () {
         requestAnimationFrame(animate);
