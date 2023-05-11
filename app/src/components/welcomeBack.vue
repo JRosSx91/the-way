@@ -16,8 +16,7 @@ export default defineComponent({
 .old-page {
   position: absolute;
   inset: 0;
-  background: url("https://assets.codepen.io/907471/science-fiction-room-2_1.png?v42")
-    center center no-repeat;
+  background: url("@/assets/img/welcome1.jpg") center center no-repeat;
   background-size: cover;
   transform: scale(1.5);
 
@@ -100,9 +99,7 @@ export default defineComponent({
 .new-page {
   position: absolute;
   inset: 0;
-  background: url("https://assets.codepen.io/907471/science-fiction-room_1.png?v42")
-      center center no-repeat,
-    #111;
+  background: url("@/assets/img/welcome2.jpg") center center no-repeat, #111;
   background-size: cover;
   animation: show var(--duration) cubic-bezier(0.975, -0.005, 0, 1.02) infinite
     forwards;
