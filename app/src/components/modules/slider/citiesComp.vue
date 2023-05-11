@@ -1,6 +1,6 @@
 <template>
   <div class="content">
-    <div id="slider" class="w-[100%] h-[100vh]">
+    <div id="slider" class="w-[100%] h-[100vh]" ref="sliderRef">
       <div class="slider-inner">
         <div id="slider-content">
           <div class="meta">Ciudades</div>
@@ -22,7 +22,7 @@
           >
         </div>
       </div>
-      <div class="images">
+      <div class="images" ref="imagesRef">
         <img
           v-for="(x, index) in slides"
           :key="index"
@@ -56,6 +56,8 @@ export default defineComponent({
     const slideTitleRef = ref();
     const slideStatusRef = ref();
     const paginationRef = ref();
+    const sliderRef = ref();
+    const imagesRef = ref();
     let activeSlideId = ref(0);
     const slides = ref<Slide[]>(slidesData);
     const displacementSlider = function (opts: DisplacementSliderOptions) {
@@ -284,13 +286,7 @@ void main() {
       addEvents();
       window.addEventListener("resize", function () {
         renderer.setSize(renderW, renderH);
-        onWindowResize();
       });
-
-      function onWindowResize() {
-        camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-      }
 
       let animate = function () {
         requestAnimationFrame(animate);
@@ -346,13 +342,11 @@ void main() {
     z-index: 0;
   }
   canvas {
-    width: 150% !important;
-    height: 150% !important;
     position: absolute !important;
-    top: 50% !important;
-    left: 50% !important;
     transform: translate(-50%, -50%) !important;
     z-index: 100;
+    aspect-ratio: 16/9;
+    object-fit: contain;
   }
 }
 
