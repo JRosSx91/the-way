@@ -12,10 +12,10 @@
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
-import navMenu from "@/components/modules/header/navMenu.vue";
-import donateComp from "@/components/common/donateComp.vue";
+import navMenu from "@/modules/header/navMenu.vue";
+import donateComp from "@/common/donateComp.vue";
 import useStore from "@/store";
-import lightButton from "@/components/common/lightButton.vue";
+import lightButton from "@/common/lightButton.vue";
 
 export default defineComponent({
   name: "header-comp",

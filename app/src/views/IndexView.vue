@@ -8,8 +8,8 @@
 import { defineComponent } from "vue";
 import MainLayout from "@/layouts/MainLayout.vue";
 import useStore from "@/store";
-import citiesComp from "@/components/modules/slider/citiesComp.vue";
-import nightCities from "@/components/modules/slider/nightCities.vue";
+import citiesComp from "@/modules/slider/citiesComp.vue";
+import nightCities from "@/modules/slider/nightCities.vue";
 
 export default defineComponent({
   name: "IndexView",

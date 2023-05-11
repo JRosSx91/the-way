@@ -14,7 +14,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import useStore from "@/store";
-import titleComp from "@/components/common/titleComp.vue";
+import titleComp from "@/common/titleComp.vue";
 
 export default defineComponent({
   name: "nav-menu",
