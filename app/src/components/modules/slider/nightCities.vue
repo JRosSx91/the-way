@@ -4,7 +4,7 @@
       <div class="slider-inner">
         <div id="slider-content">
           <div class="meta">Ciudades</div>
-          <h2 id="slide-title">Pamplona</h2>
+          <h2 id="slide-title" ref="slideTitleRef">Pamplona</h2>
           <span
             v-for="(x, index) in slides"
             :key="index"
@@ -12,16 +12,17 @@
             >{{ x.title }}</span
           >
           <div class="meta">Título</div>
-          <div id="slide-status">Lorem Ipsum</div>
+          <div id="slide-status" ref="slideStatusRef">Lorem Ipsum</div>
           <span
             v-for="(x, index) in slides"
             :key="index"
             :data-slide-status="index"
+            ref="el => { if (el) slideTitleRefs[index] = el }"
             >{{ x.status }}</span
           >
         </div>
       </div>
-      <div class="images">
+      <div class="images" ref="imagesRef">
         <img
           v-for="(x, index) in slides"
           :key="index"
@@ -29,7 +30,7 @@
           :alt="x.title"
         />
       </div>
-      <div id="pagination">
+      <div id="pagination" ref="paginationRef">
         <button
           v-for="(x, index) in slides"
           :key="index"
@@ -41,7 +42,7 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, Ref, onMounted } from "vue";
 import * as THREE from "three";
 import gsap from "gsap";
 import imagesLoaded from "imagesloaded";
@@ -52,47 +53,63 @@ import { slidesData } from "./slidesData";
 export default defineComponent({
   setup() {
     const store = useStore();
+    const slideTitleRef = ref();
+    const slideStatusRef = ref();
+    const paginationRef = ref();
+    const imagesRef = ref<Ref<HTMLImageElement | null>[]>([]);
     let activeSlideId = ref(0);
     const slides = ref<Slide[]>(slidesData);
+    onMounted(() => {
+      imagesLoaded(imagesRef.value, () => {
+        const el = document.getElementById("slider");
+        if (el) {
+          const imgs = Array.from(el.querySelectorAll("img"));
+          displacementSlider({
+            parent: el,
+            images: imgs,
+          });
+        }
+      });
+    });
     const displacementSlider = function (opts: DisplacementSliderOptions) {
       let isAnimating = false;
       let vertex = `
-      varying vec2 vUv;
-      void main() {
-        vUv = uv;
-        gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
-      }
-  `;
+    varying vec2 vUv;
+    void main() {
+      vUv = uv;
+      gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+    }
+`;
 
       let fragment = `
-      
-          varying vec2 vUv;
-  
-  uniform sampler2D currentImage;
-  uniform sampler2D nextImage;
-  
-  uniform float dispFactor;
-  
-  void main() {
-  
-      vec2 uv = vUv;
-      vec4 _currentImage;
-      vec4 _nextImage;
-      float intensity = 0.3;
-  
-      vec4 orig1 = texture2D(currentImage, uv);
-      vec4 orig2 = texture2D(nextImage, uv);
-      
-      _currentImage = texture2D(currentImage, vec2(uv.x, uv.y + dispFactor * (orig2.r * intensity)));
-      _nextImage = texture2D(nextImage, vec2(uv.x, uv.y - (1.0 - dispFactor) * (orig1.g * intensity)));
-  
-      vec4 finalTexture = mix(_currentImage, _nextImage, dispFactor);
-  
-      gl_FragColor = finalTexture;
-  
-  }
-  
-  `;
+    
+        varying vec2 vUv;
+
+uniform sampler2D currentImage;
+uniform sampler2D nextImage;
+
+uniform float dispFactor;
+
+void main() {
+
+    vec2 uv = vUv;
+    vec4 _currentImage;
+    vec4 _nextImage;
+    float intensity = 0.3;
+
+    vec4 orig1 = texture2D(currentImage, uv);
+    vec4 orig2 = texture2D(nextImage, uv);
+    
+    _currentImage = texture2D(currentImage, vec2(uv.x, uv.y + dispFactor * (orig2.r * intensity)));
+    _nextImage = texture2D(nextImage, vec2(uv.x, uv.y - (1.0 - dispFactor) * (orig1.g * intensity)));
+
+    vec4 finalTexture = mix(_currentImage, _nextImage, dispFactor);
+
+    gl_FragColor = finalTexture;
+
+}
+
+`;
 
       let images: HTMLImageElement[] = opts.images,
         image: THREE.Texture,
@@ -180,8 +197,8 @@ export default defineComponent({
             },
           });
 
-          const slideTitleEl = document.getElementById("slide-title");
-          const slideStatusEl = document.getElementById("slide-status");
+          const slideTitleEl = slideTitleRef.value;
+          const slideStatusEl = slideStatusRef.value;
           const nextSlideTitle = document.querySelectorAll(
             `[data-slide-title="${slideId}"]`
           )[0].innerHTML;
@@ -251,7 +268,7 @@ export default defineComponent({
       object.position.set(0, 0, 0);
       scene.add(object);
       const addEvents = function () {
-        const paginationElement = document.getElementById("pagination");
+        const paginationElement = paginationRef.value;
 
         if (paginationElement !== null) {
           const pagButtons: HTMLButtonElement[] = Array.from(
@@ -280,7 +297,13 @@ export default defineComponent({
       addEvents();
       window.addEventListener("resize", function () {
         renderer.setSize(renderW, renderH);
+        onWindowResize();
       });
+
+      function onWindowResize() {
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      }
 
       let animate = function () {
         requestAnimationFrame(animate);
@@ -289,21 +312,13 @@ export default defineComponent({
       };
       animate();
     };
-    imagesLoaded(document.querySelectorAll("img"), () => {
-      console.log("Todas las imágenes cargadas");
-      const el = document.getElementById("slider");
-      if (el) {
-        const imgs = Array.from(el.querySelectorAll("img"));
-        displacementSlider({
-          parent: el,
-          images: imgs,
-        });
-      }
-    });
     return {
       slides,
       store,
       activeSlideId,
+      slideTitleRef,
+      slideStatusRef,
+      paginationRef,
     };
   },
 });
@@ -331,18 +346,15 @@ export default defineComponent({
     width: 100%;
     max-width: 100%;
     position: relative;
-    z-index: -500;
+    z-index: 0;
   }
-}
-
-canvas {
-  width: 100%;
-  height: 100vh;
-  position: absolute;
-  top: 0;
-  left: 0;
-  transform: translate(-50%, -50%);
-  z-index: 100;
+  canvas {
+    position: absolute !important;
+    width: 100%;
+    height: 100vh;
+    transform: translate(-50%, -50%) !important;
+    z-index: 100;
+  }
 }
 
 .slider-inner {
@@ -436,7 +448,6 @@ canvas {
   left: 150%;
   width: 100%;
   height: 100vh;
-  object-fit: cover;
 }
 
 #pagination {
@@ -459,7 +470,7 @@ canvas {
     background-color: #ffffff;
     border-radius: 100%;
     padding: 0;
-    margin: 30px 10px;
+    margin: 30px 3px;
     cursor: pointer;
     position: relative;
     opacity: 0.2;

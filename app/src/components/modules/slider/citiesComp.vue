@@ -1,6 +1,6 @@
 <template>
   <div class="content">
-    <div id="slider" class="w-[100%] h-[100vh]" ref="sliderRef">
+    <div id="slider" class="w-[100%] h-[100vh]">
       <div class="slider-inner">
         <div id="slider-content">
           <div class="meta">Ciudades</div>
@@ -56,7 +56,6 @@ export default defineComponent({
     const slideTitleRef = ref();
     const slideStatusRef = ref();
     const paginationRef = ref();
-    const sliderRef = ref();
     const imagesRef = ref<Ref<HTMLImageElement | null>[]>([]);
     let activeSlideId = ref(0);
     const slides = ref<Slide[]>(slidesData);
@@ -298,7 +297,13 @@ void main() {
       addEvents();
       window.addEventListener("resize", function () {
         renderer.setSize(renderW, renderH);
+        onWindowResize();
       });
+
+      function onWindowResize() {
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      }
 
       let animate = function () {
         requestAnimationFrame(animate);
