@@ -6,6 +6,7 @@ const useStore = defineStore("store", {
     return {
       dark: false,
       phone: false,
+      activeSlideId: 0,
       primaryColor: "purple-500",
       secondaryColor: "yellow-500",
     };
