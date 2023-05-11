@@ -1,12 +1,15 @@
 <template>
-  <MainLayout></MainLayout>
+  <MainLayout>
+    <citiesComp v-if="!store.dark" />
+    <nightCities v-else />
+  </MainLayout>
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
 import MainLayout from "@/layouts/MainLayout.vue";
+import useStore from "@/store";
 import citiesComp from "@/components/modules/slider/citiesComp.vue";
 import nightCities from "@/components/modules/slider/nightCities.vue";
-import useStore from "@/store";
 
 export default defineComponent({
   name: "IndexView",
