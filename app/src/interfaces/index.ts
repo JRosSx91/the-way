@@ -2,6 +2,7 @@ export interface State {
   // page mode
   dark: boolean;
   phone: boolean;
+  login: boolean;
   activeSlideId: number;
   primaryColor: string;
   secondaryColor: string;
