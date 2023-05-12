@@ -117,234 +117,156 @@ export default defineComponent({
 });
 </script>
 <style lang="scss" scoped>
-$main: #777;
-$back: #aaa;
-$accent: hsl(220, 50%, 40%);
-
-$sans: "Open Sans", sans-serif;
-$heebo: "Heebo", sans-serif;
-
-$base: 3vh;
-
-$time: 1800ms;
-
-$ease-out: cubic-bezier(0.26, 0.005, 0.135, 1);
-$ease-in-out: cubic-bezier(0.785, 0.135, 0.15, 0.86);
-
+html,
 body {
-  background: $back;
-  font-family: $sans;
+  height: 100vh;
+  overflow: hidden;
+  cursor: none;
+
+  @media (pointer: coarse) {
+    cursor: default;
+  }
 }
 
 .slider {
-  position: relative;
-  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100vw;
-  background: $main;
-  overflow: hidden;
+  height: 100vh;
+  transition: 0.5s ease-in-out;
 
-  &__wrap {
-    position: absolute;
-    width: 100vw;
-    height: 100vh;
-    transform: translateX(100vw);
-    top: 0%;
-    left: 0;
-    right: auto;
-    overflow: hidden;
-    transition: transform $time/4 $ease-in-out;
-    transform-origin: 0% 50%;
-    transition-delay: $time/4;
-    opacity: 0;
-    &--hacked {
-      opacity: 1;
+  .down & {
+    transform: scale(0.9);
+
+    .item {
+      .tit {
+        opacity: 0;
+      }
     }
   }
 
-  &__back {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-size: auto 100%;
-    background-position: center;
-    background-repeat: none;
-    transition: filter $time/4 $ease-in-out;
+  * {
+    outline: none;
   }
 
-  &__inner {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0%;
-    background-size: auto 133.3333%;
-    background-position: center;
-    background-repeat: none;
-    transform: scale(0.75);
-    transition: transform $time/4 $ease-in-out, box-shadow $time/4 $ease-in-out,
-      opacity $time/4 step-end;
-    opacity: 0;
-    box-shadow: 0 $base $base rgba(darken($accent, 50%), 0);
-    padding: $base * 5;
-    box-sizing: border-box;
-  }
-
-  &__content {
+  .item {
     position: relative;
-    top: 50%;
-    width: auto;
-    transform: translateY(-50%);
-    color: white;
-    font-family: $heebo;
-    opacity: 0;
-    transition: opacity $time/4;
-    h1 {
-      font-weight: 900;
-      font-size: $base * 3;
-      line-height: 0.85;
-      margin-bottom: $base/4;
-      pointer-events: none;
-      text-shadow: 0 $base/8 $base/4 rgba(darken($accent, 50%), 0.1);
-    }
-    a {
-      cursor: pointer;
-      font-size: $base * 0.8;
-      letter-spacing: $base * 0.1;
-      font-weight: 100;
-      position: relative;
-      &:after {
-        content: "";
-        display: block;
-        width: $base * 3;
-        background: white;
-        height: 1px;
-        position: absolute;
-        top: 50%;
-        left: $base * 2;
-        transform: translateY(-50%);
-        transform-origin: 0% 50%;
-        transition: transform $time/2 $ease-in-out;
-      }
-      &:before {
-        content: "";
-        border-top: 1px solid white;
-        border-right: 1px solid white;
-        display: block;
-        width: $base/3;
-        height: $base/3;
-        transform: translateX(0) translateY(-50%) rotate(45deg);
-        position: absolute;
-        font-family: $heebo;
-        font-weight: 100;
-        top: 50%;
-        left: $base * 5;
-        transition: transform $time/2 $ease-in-out;
-      }
-      &:hover {
-        &:after {
-          transform: scaleX(1.5);
-          transition: transform $time * 2/3 $ease-in-out;
-        }
-        &:before {
-          transform: translateX(#{$base * 2}) translateY(-50%) rotate(45deg);
-          transition: transform $time * 2/3 $ease-in-out;
-        }
-      }
-    }
-  }
-
-  &__slide {
-    position: absolute;
-    left: 0;
-    height: 100vh;
+    z-index: 1;
     width: 100vw;
-    //transform: translatex(-100%);
-    transition: transform $time/3 $ease-in-out;
-    transition-delay: $time/3;
-    pointer-events: none;
-    z-index: 0;
+    height: 100vh;
 
-    &--active {
-      transform: translatex(0%);
-      z-index: 2;
-      .slider__wrap {
-        transform: translateX(0);
-        transform-origin: 100% 50%;
-        opacity: 1;
-        animation: none;
-      }
-      .slider__back {
-        filter: blur(#{$base * 0.5});
-        transition: filter $time/2 $ease-in-out;
-        transition-delay: $time/2 !important;
-      }
-      .slider__inner {
-        transform: scale(0.8);
-        box-shadow: 0 $base/3 $base * 2 rgba(darken($accent, 50%), 0.2);
-        pointer-events: auto;
-        opacity: 1;
-        transition: transform $time/2 $ease-in-out,
-          box-shadow $time/2 $ease-in-out, opacity 1ms step-end;
-        transition-delay: $time/2;
-      }
-      .slider__content {
-        opacity: 1;
-        transition-delay: $time * 3/4;
-      }
+    svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 1;
     }
 
-    &:not(.slider__slide--active) .slider__wrap {
-      @keyframes hack {
-        0% {
-          transform: translateX(0);
-          opacity: 1;
-        }
-        50% {
-          transform: translateX(-100vw);
-          opacity: 1;
-        }
-        51% {
-          transform: translateX(-100vw);
-          opacity: 0;
-        }
-        52% {
-          transform: translateX(100vw);
-          opacity: 0;
-        }
-        100% {
-          transform: translateX(100vw);
-          opacity: 1;
-        }
-      }
-      animation-name: hack;
-      animation-duration: $time/2;
-      animation-delay: $time/4;
-      animation-timing-function: $ease-in-out;
-    }
-
-    &:nth-child(1) .slider__back,
-    &:nth-child(1) .slider__inner {
-      background-image: url("@/assets/img/welcome1.jpg");
-      //background: #eee;
-    }
-    &:nth-child(2) .slider__back,
-    &:nth-child(2) .slider__inner {
-      background-image: url("@/assets/img/welcome1.jpg");
-      //background: #aaa;
+    .tit {
+      text-align: center;
+      position: absolute;
+      z-index: 10;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      transform: translateY(-50%);
+      letter-spacing: 2rem;
+      color: #fff;
+      font-family: Roboto, sans-serif;
+      font-size: 7vw;
+      transition: all 0.3s ease-in-out;
     }
   }
 }
 
-.sig {
+#slider-1 {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+
+  .tit {
+    display: none;
+  }
+}
+
+#slider-2 {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  transform: scale(1) !important;
+  pointer-events: none;
+}
+
+.cursor {
+  pointer-events: none;
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  margin-top: -15px;
+  margin-left: -15px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 0 5px rgba(0, 0, 0, 0.05);
+  transition: transform ease-in-out 0.2s, background ease-in-out 0.2s;
+  transform: translateZ(0);
+  z-index: 100;
+  left: -9999px;
+
+  &:before,
+  &:after {
+    content: "";
+    position: absolute;
+    border-left: 6px solid rgba(255, 255, 255, 0.5);
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    top: 10px;
+    left: 52px;
+    opacity: 0;
+    transition: left ease-in-out 0.1s, opacity ease-in-out 0.2s;
+  }
+
+  &:after {
+    border-left: none;
+    border-right: 6px solid rgba(255, 255, 255, 0.5);
+    left: -27px;
+  }
+
+  .down & {
+    transform: scale(0.7) translateZ(0);
+    background: rgba(255, 255, 255, 0.4);
+
+    &:before,
+    &:after {
+      opacity: 1;
+      left: 49px;
+    }
+
+    &:after {
+      left: -24px;
+    }
+  }
+
+  @media (pointer: coarse) {
+    display: none;
+  }
+}
+
+.the-most {
   position: fixed;
-  bottom: 8px;
-  right: 8px;
-  text-decoration: none;
-  font-size: 12px;
-  font-weight: 100;
-  font-family: sans-serif;
-  color: rgba(255, 255, 255, 0.4);
-  letter-spacing: 2px;
-  z-index: 9999;
+  z-index: 10;
+  bottom: 0;
+  left: 0;
+  width: 50vw;
+  max-width: 100px;
+  padding: 10px;
+
+  img {
+    max-width: 100%;
+  }
 }
 </style>
