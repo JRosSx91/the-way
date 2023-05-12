@@ -48,7 +48,7 @@ import gsap from "gsap";
 import imagesLoaded from "imagesloaded";
 import { DisplacementSliderOptions, SlideCities } from "@/interfaces";
 import useStore from "@/store";
-import { slidesData } from "./slidesData";
+import { slidesData } from "@/constants";
 
 export default defineComponent({
   setup() {
