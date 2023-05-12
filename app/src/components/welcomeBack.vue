@@ -3,7 +3,7 @@
     <div id="slider" class="w-[100%] h-[100vh]">
       <div class="slider-inner">
         <div id="slider-content">
-          <div class="meta">Ciudades</div>
+          <div class="meta"></div>
           <h2 id="slide-title" ref="slideTitleRef">Pamplona</h2>
           <span
             v-for="(x, index) in slides"
@@ -11,7 +11,7 @@
             :data-slide-title="index"
             >{{ x.title }}</span
           >
-          <div class="meta">Título</div>
+          <div class="meta"></div>
           <div id="slide-status" ref="slideStatusRef">Lorem Ipsum</div>
           <span
             v-for="(x, index) in slides"
@@ -56,7 +56,7 @@ export default defineComponent({
     const slideTitleRef = ref();
     const slideStatusRef = ref();
     const paginationRef = ref();
-    const imagesRef = ref<Ref<HTMLImageElement | null>[]>([]);
+    const imagesRef = ref<Ref<HTMLImageElement>[]>([]);
     let activeSlideId = ref(0);
     const slides = ref<WelcomeSlide[]>(welcomeSlide);
     onMounted(() => {
@@ -377,7 +377,7 @@ void main() {
   left: 10%;
 
   h2 {
-    font-family: "Roboto", serif;
+    font-family: "Josefine Sans", serif;
     font-weight: bold;
     font-size: 30px;
     letter-spacing: -1px;
@@ -386,7 +386,7 @@ void main() {
     margin: 20px 0 60px;
 
     @media screen and (min-width: 800px) {
-      font-size: 110px;
+      font-size: 50px;
       line-height: 100px;
     }
   }
