@@ -11,9 +11,14 @@ export interface DisplacementSliderOptions {
   images: HTMLImageElement[];
   parent: HTMLElement;
 }
-export interface Slide {
+export interface SlideCities {
   title: string;
   status: string;
   img: string;
   imgNight: string;
+}
+export interface WelcomeSlide {
+  title: string;
+  subtitle: string;
+  img: string;
 }

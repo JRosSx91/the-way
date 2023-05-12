@@ -1,5 +1,5 @@
 <template>
-  <WelcomeLayout v-if="!store.login" />
+  <WelcomeLayout v-if="store.login" />
   <MainLayout v-else>
     <citiesComp v-if="!store.dark" />
     <nightCities v-else />
