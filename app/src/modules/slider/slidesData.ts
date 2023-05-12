@@ -1,6 +1,6 @@
-import { Slide } from "@/interfaces";
+import { SlideCities } from "@/interfaces";
 
-export const slidesData: Slide[] = [
+export const slidesData: SlideCities[] = [
   {
     title: "Pamplona",
     status: "Lorem Ipsum",
