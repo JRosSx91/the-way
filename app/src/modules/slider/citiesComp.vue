@@ -46,7 +46,7 @@ import { defineComponent, ref, Ref, onMounted } from "vue";
 import * as THREE from "three";
 import gsap from "gsap";
 import imagesLoaded from "imagesloaded";
-import { DisplacementSliderOptions, Slide } from "@/interfaces";
+import { DisplacementSliderOptions, SlideCities } from "@/interfaces";
 import useStore from "@/store";
 import { slidesData } from "./slidesData";
 
@@ -58,7 +58,7 @@ export default defineComponent({
     const paginationRef = ref();
     const imagesRef = ref<Ref<HTMLImageElement | null>[]>([]);
     let activeSlideId = ref(0);
-    const slides = ref<Slide[]>(slidesData);
+    const slides = ref<SlideCities[]>(slidesData);
     onMounted(() => {
       imagesLoaded(imagesRef.value, () => {
         const el = document.getElementById("slider");
