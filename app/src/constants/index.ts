@@ -48,13 +48,13 @@ export const welcomeSlide: WelcomeSlide[] = [
   {
     title: "Todo presente tuvo un pasado",
     subtitle: "¿Te gustaría conocer el del Camino?",
-    img: require("@/assets/img/welcome1.jpg"),
+    img: require("@/assets/img/welcome2.jpg"),
   },
   {
     title:
       "Por esta senda que pisas ya lo hicieron miles de personas... durante miles de años",
     subtitle:
       "¿Crees que es por casualidad? Acompáñanos al pasado de esta gran historia",
-    img: require("@/assets/img/welcome2.jpg"),
+    img: require("@/assets/img/welcome1.jpg"),
   },
 ];

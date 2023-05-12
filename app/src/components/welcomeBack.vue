@@ -18,7 +18,7 @@
             :key="index"
             :data-slide-status="index"
             ref="el => { if (el) slideTitleRefs[index] = el }"
-            >{{ x.status }}</span
+            >{{ x.subtitle }}</span
           >
         </div>
       </div>
@@ -26,7 +26,7 @@
         <img
           v-for="(x, index) in slides"
           :key="index"
-          :src="store.dark ? x.imgNight : x.img"
+          :src="x.img"
           :alt="x.title"
         />
       </div>
@@ -46,9 +46,9 @@ import { defineComponent, ref, Ref, onMounted } from "vue";
 import * as THREE from "three";
 import gsap from "gsap";
 import imagesLoaded from "imagesloaded";
-import { DisplacementSliderOptions, Slide } from "@/interfaces";
+import { DisplacementSliderOptions, WelcomeSlide } from "@/interfaces";
 import useStore from "@/store";
-import { slidesData } from "./slidesData";
+import { welcomeSlide } from "@/constants";
 
 export default defineComponent({
   setup() {
@@ -58,7 +58,7 @@ export default defineComponent({
     const paginationRef = ref();
     const imagesRef = ref<Ref<HTMLImageElement | null>[]>([]);
     let activeSlideId = ref(0);
-    const slides = ref<Slide[]>(slidesData);
+    const slides = ref<WelcomeSlide[]>(welcomeSlide);
     onMounted(() => {
       imagesLoaded(imagesRef.value, () => {
         const el = document.getElementById("slider");
@@ -184,7 +184,7 @@ void main() {
           mat.uniforms.nextImage.value = sliderImages[slideId];
 
           gsap.to(mat.uniforms.dispFactor, {
-            duration: 1,
+            duration: 1.5,
             value: 1,
             ease: "Expo.easeInOut",
             onUpdate: function () {
@@ -375,12 +375,10 @@ void main() {
   position: absolute;
   top: 40vh;
   left: 10%;
-  background-color: rgba(0, 0, 0, 0.5);
-  border-radius: 5%;
 
   h2 {
-    font-family: "acta-display", serif;
-    font-weight: 400;
+    font-family: "Roboto", serif;
+    font-weight: bold;
     font-size: 30px;
     letter-spacing: -1px;
     color: white;
