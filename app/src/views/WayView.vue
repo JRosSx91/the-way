@@ -12,7 +12,7 @@ import citiesComp from "@/modules/slider/citiesComp.vue";
 import nightCities from "@/modules/slider/nightCities.vue";
 
 export default defineComponent({
-  name: "IndexView",
+  name: "WayView",
   components: { MainLayout, citiesComp, nightCities },
   setup() {
     const store = useStore();
