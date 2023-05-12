@@ -1,69 +1,73 @@
 <template>
-  <div class="cont">
-    <div class="mouse"></div>
-    <div class="app">
-      <div class="app__bgimg">
-        <div class="app__bgimg-image app__bgimg-image--1"></div>
-        <div class="app__bgimg-image app__bgimg-image--2"></div>
-      </div>
-      <div class="app__img">
-        <img
-          onmousedown="return false"
-          src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/537051/whiteTest4.png"
-          alt="city"
-        />
-      </div>
-
-      <div class="app__text app__text--1">
-        <div class="app__text-line app__text-line--4">imperdiet</div>
-        <div class="app__text-line app__text-line--3">ut le</div>
-        <div class="app__text-line app__text-line--2">non tincidunt</div>
-        <div class="app__text-line app__text-line--1">
-          <img
-            src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/537051/opus-attachment.png"
-            alt=""
-          />
-        </div>
-      </div>
-
-      <div class="app__text app__text--2">
-        <div class="app__text-line app__text-line--4">habitant</div>
-        <div class="app__text-line app__text-line--3">ut eget</div>
-        <div class="app__text-line app__text-line--2">Nam imperdiet</div>
-        <div class="app__text-line app__text-line--1">
-          <img
-            src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/537051/opus-attachment.png"
-            alt=""
-          />
-        </div>
-      </div>
+  <div class="slider" id="slider-1">
+    <div class="item">
+      <svg xmlns="http://www.w3.org/2000/svg" class="original">
+        <image
+          width="100%"
+          height="100%"
+          preserveAspectRatio="xMidYMid slice"
+          xlink:href="https://github.com/supahfunk/supah-codepen/blob/master/flowers/1.jpg?raw=true"
+          mask="url(#donutmask)"
+        ></image>
+      </svg>
+      <div class="tit">DAISY</div>
     </div>
-    <div class="pages">
-      <ul class="pages__list">
-        <li
-          data-target="1"
-          class="pages__item pages__item--1 page__item-active"
-        ></li>
-        <li data-target="2" class="pages__item pages__item--2"></li>
-      </ul>
+    <div class="item">
+      <svg xmlns="http://www.w3.org/2000/svg" class="original">
+        <image
+          width="100%"
+          height="100%"
+          preserveAspectRatio="xMidYMid slice"
+          xlink:href="https://github.com/supahfunk/supah-codepen/blob/master/flowers/3.jpg?raw=true"
+          mask="url(#donutmask)"
+        ></image>
+      </svg>
+      <div class="tit">CANDIDUM</div>
+    </div>
+    <div class="item">
+      <svg xmlns="http://www.w3.org/2000/svg" class="original">
+        <image
+          width="100%"
+          height="100%"
+          preserveAspectRatio="xMidYMid slice"
+          xlink:href="https://github.com/supahfunk/supah-codepen/blob/master/flowers/4.jpg?raw=true"
+          mask="url(#donutmask)"
+        ></image>
+      </svg>
+      <div class="tit">MARIGOLD</div>
+    </div>
+    <div class="item">
+      <svg xmlns="http://www.w3.org/2000/svg" class="original">
+        <image
+          width="100%"
+          height="100%"
+          preserveAspectRatio="xMidYMid slice"
+          xlink:href="https://github.com/supahfunk/supah-codepen/blob/master/flowers/2.jpg?raw=true"
+          mask="url(#donutmask)"
+        ></image>
+      </svg>
+      <div class="tit">BLOSSOM</div>
     </div>
   </div>
+
+  <svg>
+    <defs>
+      <mask id="donutmask">
+        <circle id="outer" cx="250" cy="250" r="400" fill="white" />
+        <circle id="inner" cx="250" cy="250" r="300" />
+      </mask>
+    </defs>
+  </svg>
+
+  <div class="cursor"></div>
+
   <a
-    href="https://dribbble.com/shots/2936160-Opus-Animation"
+    class="the-most"
     target="_blank"
-    class="icon-link"
+    href="https://codepen.io/2018/popular/pens/9/"
   >
     <img
-      src="http://icons.iconarchive.com/icons/uiconstock/socialmedia/256/Dribbble-icon.png"
-    />
-  </a>
-  <a
-    href="https://twitter.com/mrspok407"
-    target="_blank"
-    class="icon-link icon-link--twitter"
-  >
-    <img
-      src="https://cdn1.iconfinder.com/data/icons/logotypes/32/twitter-128.png"
+      src="https://raw.githubusercontent.com/supahfunk/supah-codepen/master/themost-2018.png"
     />
   </a>
 </template>
@@ -71,90 +75,43 @@
 import { defineComponent, onMounted, ref } from "vue";
 
 export default defineComponent({
-  name: "welcome-back",
+  name: "SliderComponent",
   setup() {
-    let animation = ref(true);
-    let curSlide = ref(1);
-    let scrolledUp: boolean, nextSlide: number;
+    let slides = ref<Array<number>>([]); // Esto debería contener los datos de tus diapositivas
+    let currentSlide = ref(1);
 
-    const app = ref();
-    const pageNav1 = ref(null);
-    const pageNav2 = ref(null);
-
-    const pagination = (slide: number, target?: number) => {
-      animation.value = true;
-      if (target === undefined) {
-        nextSlide = scrolledUp ? slide - 1 : slide + 1;
-      } else {
-        nextSlide = target;
+    const createIndicators = () => {
+      for (let i = 0; i < slides.value.length; i++) {
+        // Aquí se crea la lógica para añadir los indicadores a tu slider
       }
-
-      document
-        .querySelector(".pages__item--" + nextSlide)
-        ?.classList.add("page__item-active");
-      document
-        .querySelector(".pages__item--" + slide)
-        ?.classList.remove("page__item-active");
-
-      app.value?.classList.toggle("active");
       setTimeout(() => {
-        animation.value = false;
-      }, 3000);
+        // Aquí se añade la lógica para añadir la clase a tu elemento
+      }, 1000);
     };
 
-    const navigateDown = () => {
-      if (curSlide.value > 1) return;
-      scrolledUp = false;
-      pagination(curSlide.value);
-      curSlide.value++;
+    const goToSlide = (number: number) => {
+      // Aquí se añade la lógica para cambiar la diapositiva activa
+      currentSlide.value = number;
     };
 
-    const navigateUp = () => {
-      if (curSlide.value === 1) return;
-      scrolledUp = true;
-      pagination(curSlide.value);
-      curSlide.value--;
+    const nextSlide = () => {
+      if (currentSlide.value >= slides.value.length) {
+        currentSlide.value = 1;
+      } else {
+        currentSlide.value++;
+      }
+      goToSlide(currentSlide.value);
     };
 
     onMounted(() => {
-      if (app.value) {
-        setTimeout(() => {
-          app.value.classList.add("initial");
-        }, 1500);
-      }
-
-      setTimeout(() => {
-        animation.value = false;
-      }, 4500);
-
-      document.addEventListener("wheel", (e: WheelEvent) => {
-        const delta = e.deltaY;
-        if (animation.value) return;
-        if (delta > 0) {
-          navigateUp();
-        } else {
-          navigateDown();
-        }
-      });
-
-      document.addEventListener("click", (e) => {
-        if (animation.value) return;
-        const targetElement = e.target as HTMLElement;
-        if (targetElement) {
-          let targetAttr = targetElement.getAttribute("data-target");
-          if (targetAttr) {
-            let target = +targetAttr;
-            pagination(curSlide.value, target);
-            curSlide.value = target;
-          }
-        }
-      });
+      createIndicators();
     });
 
     return {
-      app,
-      pageNav1,
-      pageNav2,
+      slides,
+      currentSlide,
+      goToSlide,
+      nextSlide,
     };
   },
 });
@@ -367,18 +324,13 @@ body {
 
     &:nth-child(1) .slider__back,
     &:nth-child(1) .slider__inner {
-      background-image: url(https://unsplash.it/1600/800/?image=931);
+      background-image: url("@/assets/img/welcome1.jpg");
       //background: #eee;
     }
     &:nth-child(2) .slider__back,
     &:nth-child(2) .slider__inner {
-      background-image: url(https://unsplash.it/1600/800/?image=929);
+      background-image: url("@/assets/img/welcome1.jpg");
       //background: #aaa;
-    }
-    &:nth-child(3) .slider__back,
-    &:nth-child(3) .slider__inner {
-      background-image: url(https://unsplash.it/1600/800/?image=927);
-      //background: #888;
     }
   }
 }
