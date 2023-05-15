@@ -1,13 +1,13 @@
 <template>
   <div class="flex">
     <nav class="flex" :class="store.dark ? 'text-white' : 'text-black'">
-      <a class="active" href="#">History</a>
-      <a href="#">Legends</a>
+      <router-link to="/past"><a class="active">Past</a></router-link>
+      <router-link to="/ways"><a>Ways</a></router-link>
     </nav>
     <titleComp class="mx-5" />
     <nav class="flex" :class="store.dark ? 'text-white' : 'text-black'">
-      <a href="#">Need help?</a>
-      <a href="#">AI Assistant (soon)</a>
+      <router-link to="/social"><a>Social</a></router-link>
+      <router-link to="/web3"><a>Web3</a></router-link>
     </nav>
   </div>
 </template>
@@ -17,7 +17,7 @@ import useStore from "@/store";
 import titleComp from "@/common/titleComp.vue";
 
 export default defineComponent({
-  name: "nav-menu",
+  name: "past-nav",
   components: { titleComp },
   setup() {
     const store = useStore();
@@ -29,12 +29,16 @@ export default defineComponent({
 });
 </script>
 <style lang="scss" scoped>
+@font-face {
+  font-family: "Enchanted Land";
+  src: url("@/assets/fonts/Enchanted\ Land.otf");
+}
 nav {
   display: none;
 
   a {
-    font-family: "Arial", serif;
-    font-size: 12px;
+    font-family: "Enchanted Land", serif;
+    font-size: 2rem;
     text-transform: uppercase;
     letter-spacing: 3px;
     text-decoration: none;
