@@ -1,13 +1,13 @@
 <template>
   <div class="flex">
     <nav class="flex" :class="store.dark ? 'text-white' : 'text-black'">
-      <a class="active" href="#">Index</a>
-      <router-link to="/way">Ways</router-link>
+      <router-link to="/past"><a class="active">Past</a></router-link>
+      <router-link to="/ways"><a>Ways</a></router-link>
     </nav>
     <titleComp class="mx-5" />
     <nav class="flex" :class="store.dark ? 'text-white' : 'text-black'">
-      <router-link to="/past">Go to the past</router-link>
-      <router-link to="/me">About me</router-link>
+      <router-link to="/social"><a>Social</a></router-link>
+      <router-link to="/web3"><a>Web3</a></router-link>
     </nav>
   </div>
 </template>
