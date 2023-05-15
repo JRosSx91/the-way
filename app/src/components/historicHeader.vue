@@ -1,6 +1,6 @@
 <template>
   <header>
-    <div class="inner flex justify-between">
+    <div class="inner flex">
       <historicalNav />
       <donateComp />
     </div>
@@ -32,12 +32,12 @@ header {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
+  width: 100vw;
   height: 115px;
   z-index: 10;
   background-position: center top;
-  background-size: auto 200px;
-  background-repeat: repeat-x;
+  background-size: auto 230px;
+  opacity: 80%;
   background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/123024/menutexture.png");
 
   .inner {
@@ -46,6 +46,7 @@ header {
     display: flex;
     height: 70px;
     align-items: center;
+    justify-content: center;
     position: relative;
   }
 }
