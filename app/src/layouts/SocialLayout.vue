@@ -5,7 +5,7 @@
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
-import socialHeader from "@/components/historicHeader.vue";
+import socialHeader from "@/components/socialHeader.vue";
 import socialFooter from "@/components/pastFooter.vue";
 
 export default defineComponent({

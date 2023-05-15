@@ -1,18 +1,18 @@
 <template>
-  <MainLayout> </MainLayout>
+  <PastLayout> </PastLayout>
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
-import MainLayout from "@/layouts/MainLayout.vue";
+import PastLayout from "@/layouts/PastLayout.vue";
 import useStore from "@/store";
 
 export default defineComponent({
   name: "IndexView",
-  components: { MainLayout },
+  components: { PastLayout },
   setup() {
     const store = useStore();
     return {
-      MainLayout,
+      PastLayout,
       store,
     };
   },
