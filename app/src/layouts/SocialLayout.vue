@@ -11,7 +11,7 @@ import socialFooter from "@/components/pastFooter.vue";
 import socialMenu from "@/components/socialMenu.vue";
 
 export default defineComponent({
-  name: "past-layout",
+  name: "social-layout",
   components: { socialHeader, socialMenu, socialFooter },
   setup() {
     return {
