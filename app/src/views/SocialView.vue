@@ -1,6 +1,3 @@
 <template>
-  <socialHeader />
-  <socialMenu />
-  <slot></slot>
-  <socialFooter />
+  <socialLayout></socialLayout>
 </template>
