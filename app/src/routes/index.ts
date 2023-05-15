@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
 import IndexView from "@/views/IndexView.vue";
 import WayView from "@/views/WayView.vue";
+import FrenchWay from "@/views/FrenchWay.vue";
 import HistoricView from "@/views/HistoricView.vue";
 import SocialView from "@/views/SocialView.vue";
 import Web3View from "@/views/Web3View.vue";
@@ -16,6 +17,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/ways",
     name: "ways",
     component: WayView,
+  },
+  {
+    path: "/ways/french",
+    name: "french",
+    component: FrenchWay,
   },
   {
     path: "/past",
