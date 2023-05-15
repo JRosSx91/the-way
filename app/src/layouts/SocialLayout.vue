@@ -1,6 +1,5 @@
 <template>
   <socialHeader />
-  <socialMenu />
   <slot></slot>
   <socialFooter />
 </template>
@@ -8,15 +7,13 @@
 import { defineComponent } from "vue";
 import socialHeader from "@/components/historicHeader.vue";
 import socialFooter from "@/components/pastFooter.vue";
-import socialMenu from "@/components/socialMenu.vue";
 
 export default defineComponent({
   name: "social-layout",
-  components: { socialHeader, socialMenu, socialFooter },
+  components: { socialHeader, socialFooter },
   setup() {
     return {
       socialHeader,
-      socialMenu,
       socialFooter,
     };
   },
