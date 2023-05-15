@@ -1,6 +1,6 @@
 <template>
   <div class="content">
-    <div id="slider" class="w-[100%] h-[100vh]">
+    <div id="slider" class="w-[100%] h-[100vh]" ref="sliderRef">
       <div class="slider-inner">
         <div id="slider-content">
           <div class="meta">Ciudades</div>
@@ -48,7 +48,7 @@ import gsap from "gsap";
 import imagesLoaded from "imagesloaded";
 import { DisplacementSliderOptions, SlideCities } from "@/interfaces";
 import useStore from "@/store";
-import { slidesData } from "@/constants";
+import { slidesData, vertexShader, fragShader } from "@/constants";
 
 export default defineComponent({
   setup() {
@@ -57,9 +57,13 @@ export default defineComponent({
     const slideStatusRef = ref();
     const paginationRef = ref();
     const imagesRef = ref<Ref<HTMLImageElement | null>[]>([]);
-    let activeSlideId = ref(0);
+    let activeSlideId = ref<number>(0);
     const slides = ref<SlideCities[]>(slidesData);
     onMounted(() => {
+      initializeSlider();
+    });
+
+    function initializeSlider() {
       imagesLoaded(imagesRef.value, () => {
         const el = document.getElementById("slider");
         if (el) {
@@ -70,47 +74,11 @@ export default defineComponent({
           });
         }
       });
-    });
+    }
     const displacementSlider = function (opts: DisplacementSliderOptions) {
       let isAnimating = false;
-      let vertex = `
-    varying vec2 vUv;
-    void main() {
-      vUv = uv;
-      gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
-    }
-`;
-
-      let fragment = `
-    
-        varying vec2 vUv;
-
-uniform sampler2D currentImage;
-uniform sampler2D nextImage;
-
-uniform float dispFactor;
-
-void main() {
-
-    vec2 uv = vUv;
-    vec4 _currentImage;
-    vec4 _nextImage;
-    float intensity = 0.3;
-
-    vec4 orig1 = texture2D(currentImage, uv);
-    vec4 orig2 = texture2D(nextImage, uv);
-    
-    _currentImage = texture2D(currentImage, vec2(uv.x, uv.y + dispFactor * (orig2.r * intensity)));
-    _nextImage = texture2D(nextImage, vec2(uv.x, uv.y - (1.0 - dispFactor) * (orig1.g * intensity)));
-
-    vec4 finalTexture = mix(_currentImage, _nextImage, dispFactor);
-
-    gl_FragColor = finalTexture;
-
-}
-
-`;
-
+      let vertex = vertexShader;
+      let fragment = fragShader;
       let images: HTMLImageElement[] = opts.images,
         image: THREE.Texture,
         sliderImages: THREE.Texture[] = [];
@@ -125,7 +93,6 @@ void main() {
         document.documentElement.clientHeight,
         window.innerHeight || 0
       );
-
       let renderW: number, renderH: number;
 
       if (renderWidth > canvasWidth) {
@@ -136,13 +103,13 @@ void main() {
 
       renderH = canvasHeight;
 
-      let renderer = new THREE.WebGLRenderer({
+      let RENDERER = new THREE.WebGLRenderer({
         antialias: false,
       });
-      renderer.setPixelRatio(window.devicePixelRatio);
-      renderer.setClearColor(0x23272a, 1.0);
-      renderer.setSize(renderW, renderH);
-      parent.appendChild(renderer.domElement);
+      RENDERER.setPixelRatio(window.devicePixelRatio);
+      RENDERER.setClearColor(0x23272a, 1.0);
+      RENDERER.setSize(renderW, renderH);
+      parent.appendChild(RENDERER.domElement);
 
       let loader = new THREE.TextureLoader();
       loader.crossOrigin = "anonymous";
@@ -150,12 +117,12 @@ void main() {
       images.forEach((img: HTMLImageElement) => {
         image = loader.load(img.getAttribute("src") + "?v=" + Date.now());
         image.magFilter = image.minFilter = THREE.LinearFilter;
-        image.anisotropy = renderer.capabilities.getMaxAnisotropy();
+        image.anisotropy = RENDERER.capabilities.getMaxAnisotropy();
         sliderImages.push(image);
       });
-      let scene = new THREE.Scene();
-      scene.background = new THREE.Color(0x23272a);
-      let camera = new THREE.OrthographicCamera(
+      let SCENE = new THREE.Scene();
+      SCENE.background = new THREE.Color(0x23272a);
+      let CAMERA = new THREE.OrthographicCamera(
         renderWidth / -2,
         renderWidth / 2,
         renderHeight / 2,
@@ -164,7 +131,7 @@ void main() {
         1000
       );
 
-      camera.position.z = 1;
+      CAMERA.position.z = 1;
 
       let mat = new THREE.ShaderMaterial({
         uniforms: {
@@ -179,7 +146,7 @@ void main() {
         transparent: true,
         opacity: 1.0,
       });
-      const handleButtonClick = (slideId: number) => {
+      function changeSlide(slideId: number) {
         if (mat && mat.uniforms) {
           mat.uniforms.nextImage.value = sliderImages[slideId];
 
@@ -257,7 +224,7 @@ void main() {
             }
           );
         }
-      };
+      }
 
       let geometry = new THREE.PlaneGeometry(
         parent.offsetWidth,
@@ -266,7 +233,7 @@ void main() {
       );
       let object = new THREE.Mesh(geometry, mat);
       object.position.set(0, 0, 0);
-      scene.add(object);
+      SCENE.add(object);
       const addEvents = function () {
         const paginationElement = paginationRef.value;
 
@@ -287,7 +254,7 @@ void main() {
                 if (slideIdString !== undefined) {
                   const slideId = parseInt(slideIdString, 10);
                   activeSlideId.value = slideId;
-                  handleButtonClick(slideId);
+                  changeSlide(slideId);
                 }
               }
             });
@@ -296,19 +263,19 @@ void main() {
       };
       addEvents();
       window.addEventListener("resize", function () {
-        renderer.setSize(renderW, renderH);
+        RENDERER.setSize(renderW, renderH);
         onWindowResize();
       });
 
       function onWindowResize() {
-        camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
+        CAMERA.updateProjectionMatrix();
+        RENDERER.setSize(window.innerWidth, window.innerHeight);
       }
 
       let animate = function () {
         requestAnimationFrame(animate);
 
-        renderer.render(scene, camera);
+        RENDERER.render(SCENE, CAMERA);
       };
       animate();
     };
