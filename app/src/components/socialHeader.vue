@@ -18,7 +18,7 @@ import useStore from "@/store";
 import lightButton from "@/common/lightButton.vue";
 
 export default defineComponent({
-  name: "header-comp",
+  name: "social-header",
   components: { navMenu, donateComp, lightButton },
   setup() {
     const store = useStore();
