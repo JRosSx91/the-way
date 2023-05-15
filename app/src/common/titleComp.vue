@@ -1,6 +1,8 @@
 <template>
   <div class="mx-auto">
-    <h1>W<span>AI</span></h1>
+    <router-link to="/index"
+      ><h1>W<span>AI</span></h1></router-link
+    >
   </div>
 </template>
 <script lang="ts">
