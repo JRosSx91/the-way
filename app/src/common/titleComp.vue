@@ -1,6 +1,6 @@
 <template>
   <div class="mx-auto">
-    <router-link to="/index"
+    <router-link to="/"
       ><h1>W<span>AI</span></h1></router-link
     >
   </div>
