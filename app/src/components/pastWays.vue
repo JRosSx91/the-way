@@ -1,6 +1,7 @@
 <template>
   <main>
     <div class="container">
+      <h2>Past</h2>
       <div class="past-text">
         <h2></h2>
         <p></p>
@@ -17,6 +18,10 @@ export default defineComponent({
 </script>
 <style lang="scss" scoped>
 main {
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 0;
   background-image: url("@/assets/img/welcome1.jpg");
 }
 </style>
