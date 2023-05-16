@@ -15,7 +15,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 h1 {
   color: white;
-  font-size: larger;
+  font-size: 50px;
 
   span {
     color: red;
