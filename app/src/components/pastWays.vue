@@ -3,6 +3,7 @@
     <div class="container">
       <h2>Past</h2>
       <div class="past-text">
+        <img :src="manuscrito" />
         <h2></h2>
         <p></p>
       </div>
@@ -14,6 +15,11 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "past-ways",
+  setup() {
+    return {
+      manuscrito: require("@/assets/img/manuscrito.png"),
+    };
+  },
 });
 </script>
 <style lang="scss" scoped>
